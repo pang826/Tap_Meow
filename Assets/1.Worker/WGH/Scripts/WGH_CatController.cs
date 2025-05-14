@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class WGH_CatController : MonoBehaviour
 {
+    private Animator anim;
+
     private Touch _touch;
 
     [SerializeField] private int _feverGaze;        // 피버가 발동되는 게이지
     [SerializeField] private int _curFeverGaze;     // 현재 피버 게이지
 
-    private void Start()
+    private void Awake()
     {
-        
+        anim = GetComponent<Animator>();
     }
     private void Update()
     {
@@ -35,5 +37,6 @@ public class WGH_CatController : MonoBehaviour
     public void Attack()
     {
         _curFeverGaze++;
+        anim.SetTrigger("isAttack");
     }
 }

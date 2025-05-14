@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -55,7 +53,9 @@ public class WGH_ParserMonster : MonoBehaviour
                 if (!ColorUtility.TryParseHtmlString(tokens[3].Trim(), out color))
                     color = Color.white;
 
-                var data = new WGH_MonsterData(stage, monsterType, monsterHp, color);
+                bool isBoss = bool.Parse(tokens[4].Trim());
+
+                var data = new WGH_MonsterData(stage, monsterType, monsterHp, color, isBoss);
                 monsterDataList.Add(data);
             }
             catch (System.Exception ex)

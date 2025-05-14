@@ -1,24 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WGH_CatController : MonoBehaviour
 {
-    private Animator anim;
+    private Animator _anim;
 
     private Touch _touch;
 
-    [SerializeField] private int _feverGaze;        // 피버가 발동되는 게이지
-    [SerializeField] private int _curFeverGaze;     // 현재 피버 게이지
-
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
     }
     private void Update()
     {
-        // 화면 터치
-        if (Input.touchCount > 0)
+        // UI가 아닌 화면 터치
+        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
+            && WGH_StatManager.Instance.GetFeverGaze() > WGH_StatManager.Instance.GetCurFeverGaze())
         {
             _touch = Input.GetTouch(0);
             if(_touch.phase == TouchPhase.Began ) 
@@ -27,8 +26,9 @@ public class WGH_CatController : MonoBehaviour
             }
         }
 
-        // 마우스 클릭
-        if (Input.GetMouseButtonDown(0))
+        // UI가 아닌 마우스 클릭
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false 
+            && WGH_StatManager.Instance.GetFeverGaze() > WGH_StatManager.Instance.GetCurFeverGaze())
             Attack();
     }
     /// <summary>
@@ -36,7 +36,8 @@ public class WGH_CatController : MonoBehaviour
     /// </summary>
     public void Attack()
     {
-        _curFeverGaze++;
-        anim.SetTrigger("isAttack");
+        WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
+        WGH_StatManager.Instance.IncreaseCurFeverGaze();
+        _anim.SetTrigger("isAttack");
     }
 }

@@ -5,8 +5,6 @@ using UnityEngine;
 public class WGH_CatController : MonoBehaviour
 {
     private Touch _touch;
-    [SerializeField] private float _damage;
-    public WGH_Monster Monster;
 
     [SerializeField] private int _feverGaze;        // 피버가 발동되는 게이지
     [SerializeField] private int _curFeverGaze;     // 현재 피버 게이지
@@ -31,10 +29,11 @@ public class WGH_CatController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
             Attack();
     }
+    /// <summary>
+    /// 공격 메서드(애니메이션, 이펙트, 사운드 등을 호출하고 피버게이지 상승)
+    /// </summary>
     public void Attack()
     {
-        Monster.TakeDamage(_damage);
         _curFeverGaze++;
-        Debug.Log(Monster.Hp);
     }
 }

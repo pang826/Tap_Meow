@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class WGH_Monster : MonoBehaviour
 {
+    private Touch _touch;
     [SerializeField] private float _hp;
     public float Hp { get { return _hp; } }
-    private WGH_CatController _cat;
 
     public bool IsBoss;
 
-    private void OnEnable()
+
+    private void Update()
     {
-        _cat = GameObject.FindGameObjectWithTag("Player").GetComponent<WGH_CatController>();
-        AllowcateMonster();
+        // 화면 터치
+        if (Input.touchCount > 0)
+        {
+            _touch = Input.GetTouch(0);
+            if (_touch.phase == TouchPhase.Began)
+            {
+                TakeDamage();
+            }
+        }
+
+        // 마우스 클릭
+        if (Input.GetMouseButtonDown(0))
+            TakeDamage();
     }
-    public void TakeDamage(float dmg)
+    public void TakeDamage()
     {
-        _hp -= dmg;
+        _hp -= WGH_StatManager.Instance.GetPlayerDmg();
         if(_hp <= 0)
         {
             WGH_MonsterManager.Instance.OnDieMonster?.Invoke();
             Destroy(gameObject);
         }
-    }
-
-    private void AllowcateMonster()
-    {
-        _cat.Monster = this;
     }
 }

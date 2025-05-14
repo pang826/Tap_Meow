@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class WGH_Monster : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class WGH_Monster : MonoBehaviour
 
     private void Update()
     {
-        // 화면 터치
-        if (Input.touchCount > 0)
+        // 화면 터치 + UI 클릭이 아닐경우
+        if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         {
             _touch = Input.GetTouch(0);
             if (_touch.phase == TouchPhase.Began)
@@ -23,8 +24,8 @@ public class WGH_Monster : MonoBehaviour
             }
         }
 
-        // 마우스 클릭
-        if (Input.GetMouseButtonDown(0))
+        // 마우스 클릭 + UI 클릭이 아닐경우
+        if (Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false)
             TakeDamage();
     }
     public void TakeDamage()

@@ -445,14 +445,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _parser: {fileID: 299319923}
-  _monsterPrefabs:
-  - {fileID: 7124744594564580156, guid: fa93493a665a0b641a799f16efc5a116, type: 3}
-  - {fileID: 6315373791318792139, guid: ea23e391ffeeac845a2b7ef060b21273, type: 3}
-  - {fileID: 3133723070286913901, guid: aeff7c093807e3a4182c079efcd3c05f, type: 3}
-  - {fileID: 7124744594564580156, guid: f388af6703516c446bcda0cc84bbebf8, type: 3}
+  _monsterSprites:
+  - {fileID: 21300000, guid: 447c5655e8235bb4d88577a4bb7695ff, type: 3}
+  - {fileID: 21300000, guid: 8962a0f9e70ba6e4fb13a368a7fe9f7a, type: 3}
+  - {fileID: 21300000, guid: c8ace26a7237115439302972d6053e4e, type: 3}
+  - {fileID: 21300000, guid: ddd1438906cf67449b008aacc2536fc2, type: 3}
+  - {fileID: 21300000, guid: 59ce916025dbb8d4fac2725bcc462e73, type: 3}
+  - {fileID: 21300000, guid: 05f2e0a2f8d07734e8eb5662522d74c6, type: 3}
+  - {fileID: 21300000, guid: d9928218f6242f94fb8b47e558d46660, type: 3}
+  - {fileID: 21300000, guid: e81ad420dff8d734e8d79f90789f18df, type: 3}
+  - {fileID: 21300000, guid: 4a6caaa1fdb0d074b9e72c3e1d4fb194, type: 3}
+  - {fileID: 21300000, guid: 43048c7d84672704f8634d35760c7cda, type: 3}
   _spawnPos: {fileID: 1657295479}
   _curHp: 0
   _curMonster: {fileID: 0}
+  _monsterPrefab: {fileID: 3133723070286913901, guid: aeff7c093807e3a4182c079efcd3c05f, type: 3}
 --- !u!4 &1024683737
 Transform:
   m_ObjectHideFlags: 0

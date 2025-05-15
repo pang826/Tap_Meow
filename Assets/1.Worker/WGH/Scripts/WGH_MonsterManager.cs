@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,8 +9,7 @@ public class WGH_MonsterManager : MonoBehaviour
     public static WGH_MonsterManager Instance;
 
     [SerializeField] private WGH_ParserMonster _parser;
-    [SerializeField] List<GameObject> _monsterPrefabs = new List<GameObject>();
-    private Dictionary<string, GameObject> _monDic = new Dictionary<string, GameObject>();
+    [SerializeField] List<Sprite> _monsterSprites = new List<Sprite>();
 
     public UnityAction OnSpawnMonster;              // 몬스터 소환시
     public UnityAction OnDieMonster;                // 몬스터 사망시
@@ -21,6 +21,7 @@ public class WGH_MonsterManager : MonoBehaviour
     [Header("현재 몬스터 정보")]
     [SerializeField] private float _curHp;
     [SerializeField] private WGH_Monster _curMonster;
+    [SerializeField] private GameObject _monsterPrefab;
     private void Awake()
     {
         if (Instance == null)
@@ -31,40 +32,40 @@ public class WGH_MonsterManager : MonoBehaviour
 
     private void Start()
     {
-        // 리스트의 몬스터 프리팹 딕셔너리에 할당
-        foreach(GameObject mon in _monsterPrefabs) { _monDic[mon.name] = mon; }
-
         OnDieMonster += ClearStage;
         OnDieMonster += () => SpawnMonster(_stage);
-        SpawnMonster(_stage);
+        StartCoroutine(SpawnRoutine(_stage));
     }
     /// <summary>
     /// 몬스터 스폰
     /// </summary>
     private void SpawnMonster(int stage)
     {
-        WGH_MonsterData monsterData = _parser.monsterDataList.Find(m => m.Stage == stage);
+        WGH_MonsterData monsterData = _parser.monsterDataList.Find(m => m.Stage == stage + 1);
+        Debug.Log($"테스트 {_parser.monsterDataList} ");
         if (monsterData == null) { Debug.Log("스테이지에 해당하는 몬스터 데이터가 없습니다"); return; }
-
-        if(_monDic.TryGetValue(monsterData.MonType, out GameObject prefab) == false) { Debug.Log("프리팹을 찾을 수 없습니다"); return; }
-
-        GameObject monster = Instantiate(prefab, _spawnPos.position, Quaternion.identity);
-        WGH_Monster newMon = monster.GetComponent<WGH_Monster>();
-
-
-        if(newMon != null) 
+        
+        //if(_monDic.TryGetValue(monsterData.MonType, out GameObject prefab) == false) { Debug.Log("프리팹을 찾을 수 없습니다"); return; }
+        
+        if (_curMonster == null)
         {
-            SetMonster(newMon, monsterData.Hp);
-            newMon.SetColor(monsterData.MonColor);
+            GameObject newMon = Instantiate(_monsterPrefab, _spawnPos.position, Quaternion.identity);
+            _curMonster = newMon.GetComponent<WGH_Monster>();
         }
-            
+        _curMonster.Init(_monsterSprites[stage], monsterData.MonColor);
+        SetMonster(_curMonster, monsterData.Hp);
+        
         // 스폰할 때 이벤트 발동
         OnSpawnMonster?.Invoke();
     }
     /// <summary>
-    /// 현재 소환된 몬스터 정보 초기화
+    /// 최초 소환에 사용
     /// </summary>
-
+    IEnumerator SpawnRoutine(int stage)
+    {
+        yield return new WaitForSeconds(1);
+        SpawnMonster(stage);
+    }
     private void SetMonster(WGH_Monster monster, float hp)
     {
         _curMonster = monster;
@@ -79,7 +80,7 @@ public class WGH_MonsterManager : MonoBehaviour
                 _curHp -= WGH_StatManager.Instance.GetPlayerDmg();
                 if (_curHp <= 0f)
                 {
-                    _curMonster?.OnDIe();
+                    _curMonster?.Deactive();
                     OnDieMonster?.Invoke();
                     return;
                 }
@@ -90,7 +91,7 @@ public class WGH_MonsterManager : MonoBehaviour
                 _curHp -= WGH_StatManager.Instance.GetCriticalDamage();
                 if (_curHp <= 0f)
                 {
-                    _curMonster?.OnDIe();
+                    _curMonster?.Deactive();
                     OnDieMonster?.Invoke();
                     return;
                 }

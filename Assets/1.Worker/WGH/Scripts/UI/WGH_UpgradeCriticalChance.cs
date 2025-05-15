@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WGH_UpgradeDmgButton : MonoBehaviour
+public class WGH_UpgradeCriticalChance : MonoBehaviour
 {
     Button button;
     private void Awake()
@@ -13,8 +13,9 @@ public class WGH_UpgradeDmgButton : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(WGH_StatManager.Instance.UpgradePlayerDmg);
+        button.onClick.AddListener(WGH_StatManager.Instance.UpgradeCriticalChance);
     }
+
     private void OnDisable()
     {
         button.onClick.RemoveAllListeners();

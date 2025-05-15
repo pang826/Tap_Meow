@@ -15,4 +15,8 @@ public class WGH_UpgradeCriticalDmgButton : MonoBehaviour
     {
         button.onClick.AddListener(WGH_StatManager.Instance.UpgradePlayerCriticalDmg);
     }
+    private void OnDisable()
+    {
+        button.onClick.RemoveAllListeners();
+    }
 }

@@ -42,7 +42,6 @@ public class WGH_MonsterManager : MonoBehaviour
     private void SpawnMonster(int stage)
     {
         WGH_MonsterData monsterData = _parser.monsterDataList.Find(m => m.Stage == stage + 1);
-        Debug.Log($"테스트 {_parser.monsterDataList} ");
         if (monsterData == null) { Debug.Log("스테이지에 해당하는 몬스터 데이터가 없습니다"); return; }
         
         //if(_monDic.TryGetValue(monsterData.MonType, out GameObject prefab) == false) { Debug.Log("프리팹을 찾을 수 없습니다"); return; }

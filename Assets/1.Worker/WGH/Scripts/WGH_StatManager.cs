@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class WGH_StatManager : MonoBehaviour
 {
@@ -15,6 +17,10 @@ public class WGH_StatManager : MonoBehaviour
     [SerializeField] private float _partnerAttackSpeed;             // 동료 공격 속도
     [SerializeField] private int _feverGaze;                        // 피버가 발동되는 게이지
     [SerializeField] private int _curFeverGaze;                     // 현재 피버 게이지
+
+    public UnityAction OnChangeFeverGaze;                           // 현재 피버 게이지 변경 이벤트
+    public UnityAction OnMaxFeverGaze;                              // 피버게이지를 모두 채웠을 때 호출
+    public UnityAction OnEndFeverGaze;                              // 피버게이지를 모두 소진했을 때 호출
     private void Awake()
     {
         if (Instance == null)
@@ -22,7 +28,10 @@ public class WGH_StatManager : MonoBehaviour
         else
             Destroy(gameObject);
     }
-
+    private void Start()
+    {
+        OnMaxFeverGaze += DecreaseFeverGaze;
+    }
     // 메서드
     public float GetPlayerDmg() { return _playerDmg; }                              // 플레이어 데미지 값을 가져오는 메서드
     public void UpgradePlayerDmg() { _playerDmg += _UpgradeDmg; }                   // 플레이어 데미지를 증가시키는 메서드(영구적)
@@ -40,7 +49,13 @@ public class WGH_StatManager : MonoBehaviour
     public void IncreaseCurFeverGaze()                                              // 피버 게이지를 증가(일단은 1씩)
     { 
         _curFeverGaze++;
+        OnChangeFeverGaze?.Invoke();
+
+        // 피버가 가득차면 이벤트 호출
+        if(_curFeverGaze >= _feverGaze)
+            OnMaxFeverGaze?.Invoke();
     }
+    private void DecreaseFeverGaze() { StartCoroutine(DecreaseFeverGazeRoutine()); } // 피버게이지 감소
     // 코루틴
     IEnumerator UpgredePlayerDmgRoutine(float plusDmg, float time)                  // ReinforcePlayerDmg 메서드 용 코루틴
     {
@@ -48,5 +63,25 @@ public class WGH_StatManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         _playerDmg -= plusDmg;
         yield break;
+    }
+
+    IEnumerator DecreaseFeverGazeRoutine()
+    {
+        WaitForSeconds time = new WaitForSeconds(0.1f);
+
+        yield return new WaitForSeconds(0.5f);
+        while(true)
+        {
+            if (_curFeverGaze <= 0)
+            {
+                OnEndFeverGaze?.Invoke();
+                yield break;
+            }
+
+            _curFeverGaze--;
+            OnChangeFeverGaze?.Invoke();
+            yield return time;
+            yield return null;
+        }
     }
 }

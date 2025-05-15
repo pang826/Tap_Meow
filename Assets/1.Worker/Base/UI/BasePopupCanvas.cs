@@ -21,4 +21,17 @@ public class BasePopupCanvas : MonoBehaviour
         _canvasScale.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
     }
 
+    private void InitScreenRatio()
+    {
+        float standardRatio = _canvasScale.referenceResolution.x / _canvasScale.referenceResolution.y;
+        float currentRatio = (float)Screen.width / (float)Screen.height;
+
+        if (currentRatio > standardRatio) _canvasScale.matchWidthOrHeight = 1;
+        else if (currentRatio < standardRatio) _canvasScale.matchWidthOrHeight = 0;
+    }
+
+    private void Update()
+    {
+        InitScreenRatio();
+    }
 }

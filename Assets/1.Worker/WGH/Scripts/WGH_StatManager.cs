@@ -11,6 +11,8 @@ public class WGH_StatManager : MonoBehaviour
     [Header("수치")]
     [SerializeField] private float _playerDmg;                      // 플레이어 데미지
     [SerializeField] private float _UpgradeDmg;                     // 강화시 상승하는 데미지
+    [SerializeField] private float _criticalChance;                 // 크리티컬 확률
+    [SerializeField] private float _upgradeCriticalChance;          // 강화시 상승하는 크리티컬 확률
     [SerializeField] private float _playerCriticalPer;              // 플레이어 크리티컬 데미지 증가율
     [SerializeField] private float _upgradeCriticalDmg;             // 강화시 상승하는 크리티컬 데미지 증가율
     [SerializeField] private float _goldGainPer;                    // 골드 획득량
@@ -33,20 +35,24 @@ public class WGH_StatManager : MonoBehaviour
         OnMaxFeverGaze += DecreaseFeverGaze;
     }
     // 메서드
-    public float GetPlayerDmg() { return _playerDmg; }                              // 플레이어 데미지 값을 가져오는 메서드
-    public void UpgradePlayerDmg() { _playerDmg += _UpgradeDmg; }                   // 플레이어 데미지를 증가시키는 메서드(영구적)
-    public void ReinforcePlayerDmg(float plusDmg, float time)                       // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
+    // 데미지
+    public float GetPlayerDmg() { return _playerDmg; }                                  // 플레이어 데미지 값을 가져오는 메서드
+    public void UpgradePlayerDmg() { _playerDmg += _UpgradeDmg; }                       // 플레이어 데미지 강화 메서드(영구적)
+    public void ReinforcePlayerDmg(float plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
     { StartCoroutine(UpgredePlayerDmgRoutine(plusDmg, time)); }
-    public float GetCriticalDamage()                                                // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
+    // 크리티컬
+    public float GetCriticalChance() { return _criticalChance / 100f; }                 // 현재 크리티컬 확률 반환 메서드
+    public void UpgradeCriticalChance() { _criticalChance += _upgradeCriticalChance; }  // 크리티컬 확률 강화 메서드
+    public float GetCriticalDamage()                                                    // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
     {
-        float bonusDmg = 1f + (_playerCriticalPer / 100f);
+        float bonusDmg = _playerCriticalPer / 100f;
         return _playerDmg + bonusDmg;
     }
-    public void UpgradePlayerCriticalDmg()                                          // 크리티컬 데미지 증가량을 증가시키는 메서드(영구적)
+    public void UpgradePlayerCriticalDmg()                                              // 크리티컬 데미지 증가율 강화 메서드(영구적)
     { _playerCriticalPer += _upgradeCriticalDmg; }
-    public int GetFeverGaze() { return  _feverGaze; }                               // Max 피버 게이지를 반환
-    public int GetCurFeverGaze() { return _curFeverGaze; }                          // 현재 피버 게이지를 반환
-    public void IncreaseCurFeverGaze()                                              // 피버 게이지를 증가(일단은 1씩)
+    public int GetFeverGaze() { return  _feverGaze; }                                   // Max 피버 게이지를 반환
+    public int GetCurFeverGaze() { return _curFeverGaze; }                              // 현재 피버 게이지를 반환
+    public void IncreaseCurFeverGaze()                                                  // 피버 게이지를 증가(일단은 1씩)
     { 
         _curFeverGaze++;
         OnChangeFeverGaze?.Invoke();

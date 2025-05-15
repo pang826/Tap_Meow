@@ -34,12 +34,6 @@ public class WGH_CatController : MonoBehaviour
                 Attack();
             }
         }
-        // 피버게이지가 가득찼을 때
-        else if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
-            && WGH_StatManager.Instance.GetFeverGaze() <= WGH_StatManager.Instance.GetCurFeverGaze())
-        {
-
-        }
 
         // UI가 아닌 마우스 클릭
         // 피버게이지가 가득차지 않았을 때
@@ -59,7 +53,12 @@ public class WGH_CatController : MonoBehaviour
     /// </summary>
     public void Attack()
     {
-        WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
+        bool isCritical = Random.value <= WGH_StatManager.Instance.GetCriticalChance();
+        
+        if (isCritical == false)
+            WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
+        else
+            WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
         WGH_StatManager.Instance.IncreaseCurFeverGaze();
         _anim.SetTrigger("isAttack");
     }

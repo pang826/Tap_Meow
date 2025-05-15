@@ -44,8 +44,6 @@ public class WGH_MonsterManager : MonoBehaviour
         WGH_MonsterData monsterData = _parser.monsterDataList.Find(m => m.Stage == stage + 1);
         if (monsterData == null) { Debug.Log("스테이지에 해당하는 몬스터 데이터가 없습니다"); return; }
         
-        //if(_monDic.TryGetValue(monsterData.MonType, out GameObject prefab) == false) { Debug.Log("프리팹을 찾을 수 없습니다"); return; }
-        
         if (_curMonster == null)
         {
             GameObject newMon = Instantiate(_monsterPrefab, _spawnPos.position, Quaternion.identity);
@@ -77,6 +75,7 @@ public class WGH_MonsterManager : MonoBehaviour
         {
             case E_AttackType.Attack:
                 _curHp -= WGH_StatManager.Instance.GetPlayerDmg();
+                Debug.Log("일반 공격!");
                 if (_curHp <= 0f)
                 {
                     _curMonster?.Deactive();
@@ -88,6 +87,7 @@ public class WGH_MonsterManager : MonoBehaviour
 
             case E_AttackType.Critical:
                 _curHp -= WGH_StatManager.Instance.GetCriticalDamage();
+                Debug.Log("치명타!");
                 if (_curHp <= 0f)
                 {
                     _curMonster?.Deactive();
@@ -104,10 +104,7 @@ public class WGH_MonsterManager : MonoBehaviour
     /// <summary>
     /// 스테이지 클리어 시 동작하는 메서드
     /// </summary>
-    private void ClearStage()
-    {
-        _stage++;
-    }
+    private void ClearStage() { _stage++; }
 
     private void OnDestroy()
     {

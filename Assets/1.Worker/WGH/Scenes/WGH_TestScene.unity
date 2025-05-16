@@ -443,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df41ee758603fcd45bbc9fe75f751df0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _switchDelay: 0.5
 --- !u!95 &180656264
 Animator:
   serializedVersion: 5
@@ -1158,7 +1159,7 @@ MonoBehaviour:
   _playerCriticalPer: 10
   _upgradeCriticalDmg: 0.5
   _feverGaze: 100
-  _curFeverGaze: 99
+  _curFeverGaze: 0
   _goldGainPer: 5
   _curGold: 0
   _partnerAttackSpeed: 0

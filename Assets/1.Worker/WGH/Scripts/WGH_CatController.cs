@@ -8,12 +8,16 @@ public class WGH_CatController : MonoBehaviour
 
     private Touch _touch;
     private Coroutine _feverAttackRoutine;
+    private Coroutine _attackRoutine;
 
-    private bool _isFever;                          // 피버 상태인지
-    private bool _isPushDown;                       // 누르고 있는지
+    private bool _isFever;                                      // 피버 상태인지
+    private bool _isPushDown;                                   // 누르고 있는지
 
-    private bool _isRapidLeft;
-    private bool _isRapidRight;
+    private bool _isLeftAttack;                                 // 기본 공격 좌우 확인용
+    private bool _isRapidLeft;                                  // 피버 공격 좌우 확인용
+    
+    private float _lastAttackTime = -Mathf.Infinity;            // 초기 값은 아주 오래 전
+    [SerializeField] private float _switchDelay;         // 공격 전환 시간
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -56,6 +60,10 @@ public class WGH_CatController : MonoBehaviour
     /// </summary>
     public void Attack()
     {
+        float curTime = Time.time;
+        if(curTime - _lastAttackTime > _switchDelay) { _isLeftAttack = !_isLeftAttack; }
+        if(_isLeftAttack) { _anim.SetBool("isLeft", true); }
+
         bool isCritical = Random.value <= WGH_StatManager.Instance.GetCriticalChance();
 
         if (isCritical == false)
@@ -65,16 +73,32 @@ public class WGH_CatController : MonoBehaviour
 
         WGH_StatManager.Instance.IncreaseCurFeverGaze();
         int randomValue = Random.Range(0, 2);
-        switch (randomValue)
+        if (_isLeftAttack)
         {
-            case 0:
-                _anim.SetTrigger("isLeftAttack1");
-                break;
-            case 1:
-                _anim.SetTrigger("isLeftAttack2");
-                break;
+            switch (randomValue)
+            {
+                case 0:
+                    _anim.SetTrigger("isLeftAttack1");
+                    break;
+                case 1:
+                    _anim.SetTrigger("isLeftAttack2");
+                    break;
+            }
         }
-
+        else
+        {
+            switch (randomValue)
+            {
+                case 0:
+                    _anim.SetTrigger("isRightAttack1");
+                    break;
+                case 1:
+                    _anim.SetTrigger("isRightAttack2");
+                    break;
+            }
+        }
+        
+        _lastAttackTime = curTime;
     }
 
     public void FeverAttack()

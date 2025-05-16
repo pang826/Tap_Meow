@@ -11,6 +11,9 @@ public class WGH_CatController : MonoBehaviour
 
     private bool _isFever;                          // 피버 상태인지
     private bool _isPushDown;                       // 누르고 있는지
+
+    private bool _isRapidLeft;
+    private bool _isRapidRight;
     private void Awake()
     {
         _anim = GetComponent<Animator>();
@@ -54,18 +57,29 @@ public class WGH_CatController : MonoBehaviour
     public void Attack()
     {
         bool isCritical = Random.value <= WGH_StatManager.Instance.GetCriticalChance();
-        
+
         if (isCritical == false)
             WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
         else
             WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
+
         WGH_StatManager.Instance.IncreaseCurFeverGaze();
-        _anim.SetTrigger("isAttack");
+        int randomValue = Random.Range(0, 2);
+        switch (randomValue)
+        {
+            case 0:
+                _anim.SetTrigger("isLeftAttack1");
+                break;
+            case 1:
+                _anim.SetTrigger("isLeftAttack2");
+                break;
+        }
+
     }
 
     public void FeverAttack()
     {
-        if(_feverAttackRoutine == null)
+        if (_feverAttackRoutine == null)
         {
             _isPushDown = true;
             _feverAttackRoutine = StartCoroutine(FeverAttackRoutine());
@@ -83,10 +97,40 @@ public class WGH_CatController : MonoBehaviour
                 yield break;
             }
             WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
-            _anim.SetTrigger("isAttack");
+            RapidAttack();
             yield return waitTime;
             yield return null;
         }
     }
     private void ChangeIsFever() { _isFever = !_isFever; }
+
+    private void RapidAttack()
+    {
+        _isRapidLeft = !_isRapidLeft;
+        int randomNum = Random.Range(0, 2);
+        if (_isRapidLeft)
+        {
+            switch (randomNum)
+            {
+                case 0:
+                    _anim.SetTrigger("isLeftAttack1");
+                    break;
+                case 1:
+                    _anim.SetTrigger("isLeftAttack2");
+                    break;
+            }
+        }
+        else
+        {
+            switch (randomNum)
+            {
+                case 0:
+                    _anim.SetTrigger("isRightAttack1");
+                    break;
+                case 1:
+                    _anim.SetTrigger("isRightAttack2");
+                    break;
+            }
+        }
+    }
 }

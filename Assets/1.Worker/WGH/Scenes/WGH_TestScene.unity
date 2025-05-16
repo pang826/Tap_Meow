@@ -505,12 +505,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -874088126, guid: b1ca19536a7d67a48ba65a859a0f9d33, type: 3}
+  m_Sprite: {fileID: 1438741614, guid: 5d0a2f0a33a8304458117dadcf3a2720, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.72, y: 1.85}
+  m_Size: {x: 0.96875, y: 0.96875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -848,16 +848,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parser: {fileID: 299319923}
   _monsterSprites:
-  - {fileID: 21300000, guid: 447c5655e8235bb4d88577a4bb7695ff, type: 3}
-  - {fileID: 21300000, guid: 8962a0f9e70ba6e4fb13a368a7fe9f7a, type: 3}
-  - {fileID: 21300000, guid: c8ace26a7237115439302972d6053e4e, type: 3}
-  - {fileID: 21300000, guid: ddd1438906cf67449b008aacc2536fc2, type: 3}
-  - {fileID: 21300000, guid: 59ce916025dbb8d4fac2725bcc462e73, type: 3}
-  - {fileID: 21300000, guid: 05f2e0a2f8d07734e8eb5662522d74c6, type: 3}
-  - {fileID: 21300000, guid: d9928218f6242f94fb8b47e558d46660, type: 3}
-  - {fileID: 21300000, guid: e81ad420dff8d734e8d79f90789f18df, type: 3}
-  - {fileID: 21300000, guid: 4a6caaa1fdb0d074b9e72c3e1d4fb194, type: 3}
-  - {fileID: 21300000, guid: 43048c7d84672704f8634d35760c7cda, type: 3}
+  - {fileID: 21300000, guid: e0734df369e671f4881071a5d149c822, type: 3}
+  - {fileID: 21300000, guid: 3db0c956a89c07641a631dc7ca3e561b, type: 3}
+  - {fileID: 21300000, guid: b492dc537af692b4887dbfc4108093ca, type: 3}
+  - {fileID: 21300000, guid: ed9664e03743ee242ba9890e62ce17e9, type: 3}
+  - {fileID: 21300000, guid: 43e71a09513c6d244bc418d4dc2b37be, type: 3}
+  - {fileID: 21300000, guid: c405931ecc6c7734d93e1135d728d0b6, type: 3}
+  - {fileID: 21300000, guid: 34a737213301db8489ac7107a1d2e233, type: 3}
+  - {fileID: 21300000, guid: 23cdc6308c7b4984a8c9f0b33a679a1d, type: 3}
+  - {fileID: 21300000, guid: 86f27437228b38f479e2c9968433099b, type: 3}
+  - {fileID: 21300000, guid: 96a7b207cc2ebfc48a463da442f70004, type: 3}
   _spawnPos: {fileID: 1657295479}
   _curHp: 0
   _curMonster: {fileID: 0}
@@ -1158,7 +1158,7 @@ MonoBehaviour:
   _playerCriticalPer: 10
   _upgradeCriticalDmg: 0.5
   _feverGaze: 100
-  _curFeverGaze: 0
+  _curFeverGaze: 99
   _goldGainPer: 5
   _curGold: 0
   _partnerAttackSpeed: 0

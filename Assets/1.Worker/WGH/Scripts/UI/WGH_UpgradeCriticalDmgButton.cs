@@ -13,7 +13,7 @@ public class WGH_UpgradeCriticalDmgButton : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(WGH_StatManager.Instance.UpgradePlayerCriticalDmg);
+        button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradePlayerCriticalDmg);
     }
     private void OnDisable()
     {

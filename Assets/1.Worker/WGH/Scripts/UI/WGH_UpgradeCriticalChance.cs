@@ -13,7 +13,7 @@ public class WGH_UpgradeCriticalChance : MonoBehaviour
 
     private void Start()
     {
-        button.onClick.AddListener(WGH_StatManager.Instance.UpgradeCriticalChance);
+        button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradeCriticalChance);
     }
 
     private void OnDisable()

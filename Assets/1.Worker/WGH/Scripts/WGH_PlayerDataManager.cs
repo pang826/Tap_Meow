@@ -4,23 +4,24 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class WGH_StatManager : MonoBehaviour
+public class WGH_PlayerDataManager : MonoBehaviour
 {
-    public static WGH_StatManager Instance { get; private set; }
+    public static WGH_PlayerDataManager Instance { get; private set; }
 
     [Header("데미지/데미지 강화 값")]
     [SerializeField] private float _playerDmg;                                          // 플레이어 데미지
-    [SerializeField] private float _UpgradeDmg;                                         // 강화시 상승하는 데미지
+    [SerializeField] private float _UpgradeDmg;                                         // [강화] 시 상승하는 데미지
     [Header("크확 / 확률 강화 값 / 크뎀 증가율 / 크뎀 증가율 강화 값")]
     [SerializeField] private float _criticalChance;                                     // 크리티컬 확률
-    [SerializeField] private float _upgradeCriticalChance;                              // 강화시 상승하는 크리티컬 확률
+    [SerializeField] private float _upgradeCriticalChance;                              // [강화] 시 상승하는 크리티컬 확률
     [SerializeField] private float _playerCriticalPer;                                  // 플레이어 크리티컬 데미지 증가율
-    [SerializeField] private float _upgradeCriticalDmg;                                 // 강화시 상승하는 크리티컬 데미지 증가율
+    [SerializeField] private float _upgradeCriticalDmg;                                 // [강화] 시 상승하는 크리티컬 데미지 증가율
     [Header("피버 MAX 값 / 현재 피버 게이지")]
     [SerializeField] private int _feverGaze;                                            // 피버가 발동되는 게이지
     [SerializeField] private int _curFeverGaze;                                         // 현재 피버 게이지
-    [Header("골드 획득량 / 현재 골드 / 동료 공격 속도")]
-    [SerializeField] private int _goldGainPer;                                          // 골드 획득량
+    [Header("골드 획득량 / 골드 획득량 강화 값 / 현재 골드 / 동료 공격 속도")]
+    [SerializeField] private float _goldGainPer;                                        // 골드 획득량 비율
+    [SerializeField] private float _upgradeGoldPer;                                     // [강화] 시 상승하는 골드 획득량 비율
     [SerializeField] private int _curGold;                                              // 현재 골드(임시로 여기에 만들어놓고 후에 데이터매니저 or 게임매니저로 이동)
     [SerializeField] private float _partnerAttackSpeed;                                 // 동료 공격 속도
 
@@ -70,10 +71,14 @@ public class WGH_StatManager : MonoBehaviour
     }
     private void DecreaseFeverGaze() { StartCoroutine(DecreaseFeverGazeRoutine()); }    // 피버게이지 감소
     #endregion
-    public int GetGoldPer() { return _goldGainPer; }                                    // 골드 획득량 반환
+    public float GetGoldPer() { return _goldGainPer; }                                  // 골드 획득량 반환
+    public void UpgradeGoldPer()                                                        // 골드 획득량 강화 메서드(영구적)
+    {
+        _goldGainPer += _upgradeGoldPer;
+    }
     public void GainGold()                                                              // 골드 획득
     {
-        _curGold += _goldGainPer;
+        _curGold += (int)(_goldGainPer / 100);
     }
     public float GetPartnerSpeed() { return _partnerAttackSpeed; }                      // 파트너 공속 반환
     // 코루틴

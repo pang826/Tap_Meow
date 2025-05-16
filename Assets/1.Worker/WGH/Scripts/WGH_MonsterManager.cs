@@ -20,6 +20,8 @@ public class WGH_MonsterManager : MonoBehaviour
 
     [Header("현재 몬스터 정보")]
     [SerializeField] private float _curHp;
+    [SerializeField] private bool _isBoss;
+    //[SerializeField] private float _dropGold;
     [SerializeField] private WGH_Monster _curMonster;
     [SerializeField] private GameObject _monsterPrefab;
     private void Awake()
@@ -50,7 +52,7 @@ public class WGH_MonsterManager : MonoBehaviour
             _curMonster = newMon.GetComponent<WGH_Monster>();
         }
         _curMonster.Init(_monsterSprites[stage], monsterData.MonColor);
-        SetMonster(_curMonster, monsterData.Hp);
+        SetMonster(_curMonster, monsterData.Hp, monsterData.IsBoss);
         
         // 스폰할 때 이벤트 발동
         OnSpawnMonster?.Invoke();
@@ -63,10 +65,11 @@ public class WGH_MonsterManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         SpawnMonster(stage);
     }
-    private void SetMonster(WGH_Monster monster, float hp)
+    private void SetMonster(WGH_Monster monster, float hp, bool isBoss)
     {
         _curMonster = monster;
         _curHp = hp;
+        _isBoss = isBoss;
     }
 
     public void ReceiveHit(E_AttackType hitType)
@@ -74,8 +77,8 @@ public class WGH_MonsterManager : MonoBehaviour
         switch (hitType)
         {
             case E_AttackType.Attack:
-                _curHp -= WGH_StatManager.Instance.GetPlayerDmg();
-                Debug.Log("일반 공격!");
+                _curHp -= WGH_PlayerDataManager.Instance.GetPlayerDmg();
+                
                 if (_curHp <= 0f)
                 {
                     _curMonster?.Deactive();
@@ -86,8 +89,8 @@ public class WGH_MonsterManager : MonoBehaviour
                 break;
 
             case E_AttackType.Critical:
-                _curHp -= WGH_StatManager.Instance.GetCriticalDamage();
-                Debug.Log("치명타!");
+                _curHp -= WGH_PlayerDataManager.Instance.GetCriticalDamage();
+                
                 if (_curHp <= 0f)
                 {
                     _curMonster?.Deactive();

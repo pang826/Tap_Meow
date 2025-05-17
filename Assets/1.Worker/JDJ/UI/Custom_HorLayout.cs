@@ -6,8 +6,6 @@ public class Custom_HorLayout : MonoBehaviour
     [SerializeField, Header("컨텐츠 영역 패딩 L,R,T,B 순서")] private Vector4 _padding;
     [SerializeField] private TextAnchor _alignment;
 
-
-
     /// <summary>
     /// 내부 요소 재정렬
     /// </summary>
@@ -91,11 +89,9 @@ public class Custom_HorLayout : MonoBehaviour
 
 #if UNITY_EDITOR
     private static UnityEditor.EditorApplication.CallbackFunction _refreshCallback;
-#endif
 
     private void OnValidate()
     {
-#if UNITY_EDITOR
         if (!Application.isPlaying)
         {
             if (_refreshCallback == null)
@@ -110,8 +106,10 @@ public class Custom_HorLayout : MonoBehaviour
             UnityEditor.EditorApplication.delayCall -= _refreshCallback;
             UnityEditor.EditorApplication.delayCall += _refreshCallback;
         }
-#endif
+
     }
+
+#endif
 
     #endregion
 }

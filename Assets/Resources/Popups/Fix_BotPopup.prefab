@@ -358,6 +358,7 @@ GameObject:
   - component: {fileID: 4835931711590147358}
   - component: {fileID: 432300576397479925}
   - component: {fileID: 5951130590132088484}
+  - component: {fileID: 297910355628735897}
   m_Layer: 5
   m_Name: C_Contents
   m_TagString: Untagged
@@ -452,6 +453,21 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &297910355628735897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3490484470607550231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ae1046fd4e8dd74aad635de882f4fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _statShopBtn: {fileID: 3867607998911353914}
+  _petShopBtn: {fileID: 393669694393382942}
+  _accShopBtn: {fileID: 1833696854989865016}
 --- !u!1 &3532397128351872139
 GameObject:
   m_ObjectHideFlags: 0
@@ -876,7 +892,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 3000
   m_TargetDisplay: 0
 --- !u!114 &8988226925496018946
 MonoBehaviour:

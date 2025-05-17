@@ -4,11 +4,25 @@ using UnityEngine;
 public abstract class BasePopup : MonoBehaviour
 {
     protected AnimatedPopup Anim;
+
     protected BlockPanel Block => transform.parent.GetComponentInChildren<BlockPanel>();
 
     protected virtual void Awake()
     {
-        Anim = GetComponent<AnimatedPopup>();
+        FindAnim();
+    }
+
+    protected virtual void Start()
+    {
+        Show();
+    }
+
+    private void FindAnim()
+    {
+        if(TryGetComponent<AnimatedPopup>(out AnimatedPopup m_anim))
+        {
+            Anim = m_anim;
+        }
     }
 
     /// <summary>
@@ -28,6 +42,6 @@ public abstract class BasePopup : MonoBehaviour
         if (Anim != null)
             await Anim.PlayAnim(E_PopupAnimType.Dead)?.AsyncWaitForCompletion();
 
-        Destroy(GetComponentInParent<BasePopupCanvas>().gameObject);
+        GameObject.Destroy(GetComponentInParent<BasePopupCanvas>().gameObject);
     }
 }

@@ -153,9 +153,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _parser: {fileID: 2002720387}
   _partnerPrefabs:
-  - {fileID: 3002829044127732238, guid: 5aa3541903a3b2346aa2b1718d8a6e6f, type: 3}
+  - {fileID: 2235735838457081100, guid: 7a40bd65b19259b4898f40d38d303439, type: 3}
   - {fileID: 1657582081580377826, guid: 20e1df3bcab483f4b99d1d25d405ecfd, type: 3}
-  - {fileID: 1657582081580377826, guid: f6a9a517fa39ff8438b41ac2d9b4f905, type: 3}
+  - {fileID: 5157531490107102199, guid: 71f4ecbc4fd67af41869ccb1569d9733, type: 3}
   _spawnPos:
   - {fileID: 1414903193}
   - {fileID: 1196585849}

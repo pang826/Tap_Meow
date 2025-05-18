@@ -19,6 +19,7 @@ public abstract class WGH_Partner : MonoBehaviour
 
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         StartCoroutine(AttackRoutine());
     }
     protected abstract void Attack();
@@ -30,11 +31,15 @@ public abstract class WGH_Partner : MonoBehaviour
             _curTime += Time.deltaTime;
             if (_curTime >= _attackCoolTime)
             {
-                Debug.Log("파트너 공격");
                 Attack();
                 _curTime = 0;
             }
             yield return null;
         }
+    }
+
+    public float GetDamage()
+    {
+        return _dmg;
     }
 }

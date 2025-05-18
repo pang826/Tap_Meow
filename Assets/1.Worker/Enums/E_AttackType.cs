@@ -7,5 +7,6 @@ public enum E_AttackType
    None = 0,
    Attack = 1,
    Critical = 2,
-   DefenseReduction = 3
+   DefenseReduction = 3,
+   PartnerAttack = 4
 }

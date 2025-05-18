@@ -72,7 +72,7 @@ public class WGH_MonsterManager : MonoBehaviour
         _isBoss = isBoss;
     }
 
-    public void ReceiveHit(E_AttackType hitType)
+    public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None)
     {
         switch (hitType)
         {
@@ -101,6 +101,17 @@ public class WGH_MonsterManager : MonoBehaviour
                 break;
 
             case E_AttackType.DefenseReduction:
+                break;
+
+            case E_AttackType.PartnerAttack:
+                _curHp -= WGH_PartnerManager.Instance.GetPartnerDamage(catType);
+                if (_curHp <= 0f)
+                {
+                    _curMonster?.Deactive();
+                    OnDieMonster?.Invoke();
+                    return;
+                }
+                _curMonster?.TakeDamage();
                 break;
         }
     }

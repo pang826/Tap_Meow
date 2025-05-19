@@ -41,6 +41,12 @@ public class WGH_CatController : MonoBehaviour
                 Attack();
             }
         }
+        else if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
+            && _isFever)
+            FeverAttack();
+        else if (_touch.phase == TouchPhase.Stationary || _touch.phase == TouchPhase.Moved
+            && EventSystem.current.IsPointerOverGameObject() == false)
+            _isPushDown = false;
 
         // UI가 아닌 마우스 클릭
         // 피버게이지가 가득차지 않았을 때

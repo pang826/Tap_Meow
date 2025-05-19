@@ -46,6 +46,9 @@ public class FixBotPopup : MonoBehaviour
 
     private void ActiveSlider(E_DetailPopup m_type)
     {
+        if (_slidePopup == null)
+            _currentPopupType = E_DetailPopup.None;
+
         if(_currentPopupType == m_type && _currentPopupType != E_DetailPopup.None)
         {
             PopupManager.DeadPopup();

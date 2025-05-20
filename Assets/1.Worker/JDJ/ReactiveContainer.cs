@@ -1,12 +1,6 @@
 using System;
 using System.Collections.Generic;
 
-public enum E_ReactiveType
-{
-    SlidePopupPos,
-}
-
-
 public static class ReactiveContainer
 {
     private static Dictionary<E_ReactiveType, List<IRreceiver>> _table = new();

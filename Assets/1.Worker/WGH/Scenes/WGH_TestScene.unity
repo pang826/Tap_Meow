@@ -154,7 +154,7 @@ MonoBehaviour:
   _parser: {fileID: 2002720387}
   _partnerPrefabs:
   - {fileID: 2235735838457081100, guid: 7a40bd65b19259b4898f40d38d303439, type: 3}
-  - {fileID: 1657582081580377826, guid: 20e1df3bcab483f4b99d1d25d405ecfd, type: 3}
+  - {fileID: 3532204302256765720, guid: edebeb7a6c17a48479c7179e0a388c60, type: 3}
   - {fileID: 5157531490107102199, guid: 71f4ecbc4fd67af41869ccb1569d9733, type: 3}
   _spawnPos:
   - {fileID: 1414903193}

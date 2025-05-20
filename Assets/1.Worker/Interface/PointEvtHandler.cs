@@ -23,6 +23,19 @@ public class PointEvtHandler : MonoBehaviour
         Img = GetComponent<Image>();
     }
 
+    private void OnDisable()
+    {
+        OnClickDownHandler = null;
+        OnClickUpHandler = null;
+        OnDragHandler = null;
+
+        OnPointerEnterHandler = null;
+        OnPointerExitHandler = null;
+
+        OnDragBeginHandler = null;
+        OnDragEndHandler = null;
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         OnDragHandler?.Invoke(eventData);

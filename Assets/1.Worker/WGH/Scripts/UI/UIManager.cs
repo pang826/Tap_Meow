@@ -11,9 +11,13 @@ public class UIManager : MonoBehaviour
     [Header("팝업버튼")]
     [SerializeField] private Button _statPopUpButton;
     [SerializeField] private Button _partnerPopUpButton;
+    private RectTransform _statRect;
+    private RectTransform _partnerRect;
     [Header("위치")]
     [SerializeField] private float _topYPos;
-    [SerializeField] private Vector2 _botYPos;
+
+    private bool _isStatPopUp;
+    private bool _isPartnerPopUp;
     private void Awake()
     {
         if (Instance == null)
@@ -24,19 +28,55 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _statPopUpButton.onClick.AddListener(MoveScrollViewUp);
+        _statRect = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
+        _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
+        _topYPos = 1600f;
+        _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
+        _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
     }
 
     private void OnDisable()
     {
         _statPopUpButton.onClick.RemoveAllListeners();
+        _partnerPopUpButton.onClick.RemoveAllListeners();
     }
-    public void MoveScrollViewUp()
+    public void MoveScrollViewUp(Button button)
     {
-        RectTransform statScrollView = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
-        Vector2 originalPos = statScrollView.anchoredPosition;
-
+        RectTransform statScrollView = button.transform.GetChild(0).GetComponent<RectTransform>();
+        Vector2 statPos = _statRect.anchoredPosition;
+        Vector2 partnerPos = _partnerRect.anchoredPosition;
         Sequence seq = DOTween.Sequence();
-        seq.Append(statScrollView.DOAnchorPos(originalPos + new Vector2(0, 200f), 0.5f).SetEase(Ease.OutCubic));
+        if(button == _statPopUpButton)      // 스탯 팝업 버튼을 클릭했을 때
+        {
+            if (_isPartnerPopUp)            // 파트너 팝업이 올라와 있으면 내려가도록
+            {
+                _isPartnerPopUp = false;
+                seq.Append(_partnerRect.DOAnchorPos(partnerPos - new Vector2(0, _topYPos), 0.2f).SetEase(Ease.InCubic));
+            }
+            if (!_isStatPopUp) {
+                _isStatPopUp = true;
+                seq.Append(_statRect.DOAnchorPos(statPos + new Vector2(0, _topYPos), 0.5f).SetEase(Ease.OutCubic));
+            }
+            else {
+                _isStatPopUp = false;
+                seq.Append(_statRect.DOAnchorPos(statPos - new Vector2(0, _topYPos), 0.2f).SetEase(Ease.InCubic));
+            }
+        }
+        else if(button == _partnerPopUpButton)  // 파트너 팝업 버튼을 클릭했을 때
+        {
+            if (_isStatPopUp)                   // 스탯 팝업이 올라와 있으면 내려가도록
+            {
+                _isStatPopUp = false;
+                seq.Append(_statRect.DOAnchorPos(statPos - new Vector2(0, _topYPos), 0.2f).SetEase(Ease.InCubic));
+            }
+            if (!_isPartnerPopUp) {
+                _isPartnerPopUp = true;
+                seq.Append(_partnerRect.DOAnchorPos(partnerPos + new Vector2(0, _topYPos), 0.5f).SetEase(Ease.OutCubic));
+            }
+            else {
+                _isPartnerPopUp = false;
+                seq.Append(_partnerRect.DOAnchorPos(partnerPos - new Vector2(0, _topYPos), 0.2f).SetEase(Ease.InCubic));
+            }
+        }
     }
 }

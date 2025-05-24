@@ -7,5 +7,6 @@ public enum E_PartnerCat
     None = 0,
     SwordCat,
     ArcherCat,
-    MageCat
+    MageCat,
+    MaxCount
 }

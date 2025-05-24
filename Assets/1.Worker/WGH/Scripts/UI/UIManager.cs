@@ -8,13 +8,17 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
+    public Content ContentPrefab;
+    private Dictionary<E_PartnerCat, Content> partnerContentDic = new Dictionary<E_PartnerCat, Content>();
+
     [Header("팝업버튼")]
     [SerializeField] private Button _statPopUpButton;
     [SerializeField] private Button _partnerPopUpButton;
     private RectTransform _statRect;
     private RectTransform _partnerRect;
     [Header("위치")]
-    [SerializeField] private float _topYPos;
+    private float _topYPos;
+    Vector2 _startPos;
 
     private bool _isStatPopUp;
     private bool _isPartnerPopUp;
@@ -24,12 +28,15 @@ public class UIManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        _statRect = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
+        _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
+        _startPos = _statRect.anchoredPosition;
+
+
     }
 
     private void Start()
     {
-        _statRect = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
-        _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
         _topYPos = 1600f;
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
@@ -78,5 +85,10 @@ public class UIManager : MonoBehaviour
                 seq.Append(_partnerRect.DOAnchorPos(partnerPos - new Vector2(0, _topYPos), 0.2f).SetEase(Ease.InCubic));
             }
         }
+    }
+
+    public void SetPartnerPopUpContent()
+    {
+
     }
 }

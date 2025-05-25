@@ -43,13 +43,7 @@ public class UIManager : MonoBehaviour
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 
-        for(int i = 1; i < (int)E_PartnerCat.MaxCount; i++) 
-        {
-            int index = i;
-            GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
-            Content content = contentPrefab.GetComponent<Content>();
-            content.Init(() => WGH_PartnerManager.Instance.SpawnPartner(index));
-        }
+        Invoke(nameof(SetPartnerPopUpContent), 1);
     }
 
     private void OnDisable()
@@ -99,6 +93,12 @@ public class UIManager : MonoBehaviour
 
     public void SetPartnerPopUpContent()
     {
-
+        for (int i = 1; i < (int)E_PartnerCat.MaxCount; i++)
+        {
+            int index = i;
+            GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
+            Content content = contentPrefab.GetComponent<Content>();
+            content.Init(_sptrites[index - 1], WGH_PartnerManager.Instance.GetPartnerName(index), () => WGH_PartnerManager.Instance.SpawnPartner(index));
+        }
     }
 }

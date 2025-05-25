@@ -18,11 +18,10 @@ public class Content : MonoBehaviour
         Button = GetComponentInChildren<Button>();
     }
 
-    public void Init(/*Sprite image, string text,*/ UnityAction onClickAction)
+    public void Init(Sprite image, string text, UnityAction onClickAction)
     {
-        //Image.sprite = image;
-        //Tmp.text = text;
-
+        Image.sprite = image;
+        Tmp.text = text;
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(onClickAction);
     }

@@ -4705,7 +4705,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000103595754, y: -0.002188273}
+  m_AnchoredPosition: {x: 0.000103595754, y: 0.00067047233}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &615613706
@@ -6539,8 +6539,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1698693076}
   m_HandleRect: {fileID: 1698693075}
   m_Direction: 3
-  m_Value: 1
-  m_Size: 0.99999905
+  m_Value: 0
+  m_Size: 0.9999989
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -7157,7 +7157,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ContentPrefab: {fileID: 3467385863065819552, guid: 9d188168234f50c4b84de6c0223c9f83, type: 3}
-  _sptrites: []
+  _sptrites:
+  - {fileID: 2297650856985429058, guid: c1047ae889c746b4ea9ea5891cc12196, type: 3}
+  - {fileID: 3780710583770684987, guid: 9e0552c41cc2a5f429c0d6525d415e67, type: 3}
+  - {fileID: -6406170789462899652, guid: 1879f0705a24be14ba1bb8e50316c4d4, type: 3}
   _statPopUpButton: {fileID: 1998581972}
   _partnerPopUpButton: {fileID: 1933046826}
 --- !u!4 &983725152

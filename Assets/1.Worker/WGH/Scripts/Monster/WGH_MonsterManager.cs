@@ -103,7 +103,7 @@ public class WGH_MonsterManager : MonoBehaviour
                 break;
 
             case E_AttackType.PartnerAttack:
-                _curHp -= WGH_PartnerManager.Instance.GetPartnerDamage(catType);
+                _curHp -= WGH_PartnerManager.Instance.GetInitPartnerDamage((int)catType);
                 if (_curHp <= 0f)
                 {
                     _curMonster?.Deactive();

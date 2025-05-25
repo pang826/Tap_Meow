@@ -8,8 +8,8 @@ public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    public Content ContentPrefab;
-    private Dictionary<E_PartnerCat, Content> partnerContentDic = new Dictionary<E_PartnerCat, Content>();
+    public GameObject ContentPrefab;
+    [SerializeField] private List<Sprite> _sptrites;
 
     [Header("팝업버튼")]
     [SerializeField] private Button _statPopUpButton;
@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [Header("위치")]
     private float _topYPos;
     Vector2 _startPos;
+
+    private Transform _partnerContent;
 
     private bool _isStatPopUp;
     private bool _isPartnerPopUp;
@@ -32,7 +34,7 @@ public class UIManager : MonoBehaviour
         _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
         _startPos = _statRect.anchoredPosition;
 
-
+        _partnerContent = _partnerRect.GetChild(0).GetChild(0);
     }
 
     private void Start()
@@ -40,6 +42,14 @@ public class UIManager : MonoBehaviour
         _topYPos = 1600f;
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
+
+        for(int i = 1; i < (int)E_PartnerCat.MaxCount; i++) 
+        {
+            int index = i;
+            GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
+            Content content = contentPrefab.GetComponent<Content>();
+            content.Init(() => WGH_PartnerManager.Instance.SpawnPartner(index));
+        }
     }
 
     private void OnDisable()

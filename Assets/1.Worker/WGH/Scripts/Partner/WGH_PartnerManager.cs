@@ -43,12 +43,6 @@ public class WGH_PartnerManager : MonoBehaviour
     public float GetInitPartnerDamage(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Damage; }
     // 몬스터 이름을 받는 메서드
     public string GetPartnerName(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Name; }
-    public void UpgradeDamage(E_PartnerCat catType)
-    {
-        if (_spawnParnterDic.TryGetValue(catType, out WGH_Partner partner))
-        {
-            Debug.Log($"업그레이드{partner.GetDamage()}");
-            //partner.UpgradeDamage();
-        }
-    }
+    public float GetPartnerDamage(E_PartnerCat catType) { return _spawnParnterDic[catType].GetDamage(); }
+    public void UpgradeDamage(E_PartnerCat catType) { _spawnParnterDic[catType].UpgradeDamage(); }
 }

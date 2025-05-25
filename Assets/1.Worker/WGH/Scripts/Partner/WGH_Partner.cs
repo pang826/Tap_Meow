@@ -38,12 +38,12 @@ public abstract class WGH_Partner : MonoBehaviour
         }
     }
 
-    public float GetDamage()
+    public virtual float GetDamage()
     { return _dmg; }
 
-    public void UpgradeDamage(float plusDmg)
-    { _dmg = plusDmg; }
+    public virtual void UpgradeDamage()
+    { _dmg += _dmg; }
 
-    public void UpgradeAttackSpped(float plusAttackSpped)
+    public virtual void UpgradeAttackSpped(float plusAttackSpped)
     { _attackSpped += plusAttackSpped; }
 }

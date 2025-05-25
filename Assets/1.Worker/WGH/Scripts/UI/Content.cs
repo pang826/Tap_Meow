@@ -18,11 +18,22 @@ public class Content : MonoBehaviour
         Button = GetComponentInChildren<Button>();
     }
 
-    public void Init(Sprite image, string text, UnityAction onClickAction)
+    public void Init(Sprite image, string text, UnityAction onClickAction, E_PartnerCat catType)
     {
         Image.sprite = image;
         Tmp.text = text;
         Button.onClick.RemoveAllListeners();
-        Button.onClick.AddListener(onClickAction);
+        UnityAction wrapper = null;
+        wrapper = () => 
+        { 
+            onClickAction.Invoke(); 
+            Button.onClick.RemoveListener(wrapper); 
+            Button.onClick.AddListener(() =>
+            {
+                WGH_PartnerManager.Instance.UpgradeDamage(catType);
+            }); 
+            
+        };
+        Button.onClick.AddListener(wrapper);
     }
 }

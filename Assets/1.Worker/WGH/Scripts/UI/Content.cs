@@ -18,7 +18,7 @@ public class Content : MonoBehaviour
         Button = GetComponentInChildren<Button>();
     }
 
-    public void Init(Sprite image, string text, UnityAction onClickAction, E_PartnerCat catType)
+    public void InitPartner(Sprite image, string text, UnityAction onClickAction, E_PartnerCat catType)
     {
         Image.sprite = image;
         Tmp.text = text;
@@ -35,5 +35,30 @@ public class Content : MonoBehaviour
             
         };
         Button.onClick.AddListener(wrapper);
+    }
+
+    public void InitPlayerStat(Sprite image, string text, E_Stat statType)
+    {
+        if(image != null)
+        Image.sprite = image;
+        if(text != null)
+        Tmp.text = text;
+        Button.onClick.RemoveAllListeners();
+        switch(statType)
+        {
+            case E_Stat.Damage:
+                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradePlayerDmg);
+                break;
+            case E_Stat.CriticalChance:
+                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradeCriticalChance);
+                break;
+            case E_Stat.CriticalDamage:
+                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradePlayerCriticalDmg);
+                break;
+            case E_Stat.GoldGainPer:
+                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradeGoldPer);
+                break;
+        }
+        
     }
 }

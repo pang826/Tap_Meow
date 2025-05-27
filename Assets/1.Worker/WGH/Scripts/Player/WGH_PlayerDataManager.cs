@@ -8,14 +8,10 @@ public class WGH_PlayerDataManager : MonoBehaviour
 {
     public static WGH_PlayerDataManager Instance { get; private set; }
 
-    [Header("데미지/데미지 강화 값")]
-    [SerializeField] private float _playerDmg;                                          // 플레이어 데미지
-    [SerializeField] private float _UpgradeDmg;                                         // [강화] 시 상승하는 데미지
-    [Header("크확 / 확률 강화 값 / 크뎀 증가율 / 크뎀 증가율 강화 값")]
-    [SerializeField] private float _criticalChance;                                     // 크리티컬 확률
-    [SerializeField] private float _upgradeCriticalChance;                              // [강화] 시 상승하는 크리티컬 확률
-    [SerializeField] private float _playerCriticalPer;                                  // 플레이어 크리티컬 데미지 증가율
-    [SerializeField] private float _upgradeCriticalDmg;                                 // [강화] 시 상승하는 크리티컬 데미지 증가율
+    [SerializeField, Header("데미지")] private float _playerDmg;                         // 플레이어 데미지
+    
+    [SerializeField, Header("크리티컬 확률")] private float _criticalChance;             // 크리티컬 확률
+    [SerializeField, Header("크리티컬 데미지")] private float _playerCriticalPer;        // 플레이어 크리티컬 데미지
     [Header("피버 MAX 값 / 현재 피버 게이지")]
     [SerializeField] private int _feverGaze;                                            // 피버가 발동되는 게이지
     [SerializeField] private int _curFeverGaze;                                         // 현재 피버 게이지
@@ -42,20 +38,20 @@ public class WGH_PlayerDataManager : MonoBehaviour
     // 메서드
     #region // 데미지
     public float GetPlayerDmg() { return _playerDmg; }                                  // 플레이어 데미지 값을 가져오는 메서드
-    public void UpgradePlayerDmg() { _playerDmg += _UpgradeDmg; }                       // 플레이어 데미지 강화 메서드(영구적)
+    public void UpgradePlayerDmg() { _playerDmg += _playerDmg; }                        // 플레이어 데미지 강화 메서드(영구적)
     public void ReinforcePlayerDmg(float plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
     { StartCoroutine(UpgredePlayerDmgRoutine(plusDmg, time)); }
     #endregion
     #region // 크리티컬
     public float GetCriticalChance() { return _criticalChance / 100f; }                 // 현재 크리티컬 확률 반환 메서드
-    public void UpgradeCriticalChance() { _criticalChance += _upgradeCriticalChance; }  // 크리티컬 확률 강화 메서드(영구적)
+    public void UpgradeCriticalChance() { _criticalChance++; }                          // 크리티컬 확률 강화 메서드(영구적)
     public float GetCriticalDamage()                                                    // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
     {
         float bonusDmg = _playerCriticalPer / 100f;
         return _playerDmg + bonusDmg;
     }
     public void UpgradePlayerCriticalDmg()                                              // 크리티컬 데미지 증가율 강화 메서드(영구적)
-    { _playerCriticalPer += _upgradeCriticalDmg; }
+    { _playerCriticalPer++; }
     #endregion
     #region // 피버 게이지
     public int GetFeverGaze() { return  _feverGaze; }                                   // Max 피버 게이지를 반환

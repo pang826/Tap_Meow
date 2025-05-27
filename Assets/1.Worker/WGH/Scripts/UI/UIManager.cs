@@ -9,7 +9,8 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     public GameObject ContentPrefab;
-    [SerializeField] private List<Sprite> _sptrites;
+    [SerializeField] private List<Sprite> _partnerSptrites;
+    [SerializeField] private List<Sprite> _statSptrites;
 
     [Header("팝업버튼")]
     [SerializeField] private Button _statPopUpButton;
@@ -21,6 +22,7 @@ public class UIManager : MonoBehaviour
     Vector2 _startPos;
 
     private Transform _partnerContent;
+    private Transform _statContent;
 
     private bool _isStatPopUp;
     private bool _isPartnerPopUp;
@@ -35,6 +37,7 @@ public class UIManager : MonoBehaviour
         _startPos = _statRect.anchoredPosition;
 
         _partnerContent = _partnerRect.GetChild(0).GetChild(0);
+        _statContent = _statRect.GetChild(0).GetChild(0);
     }
 
     private void Start()
@@ -43,6 +46,7 @@ public class UIManager : MonoBehaviour
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 
+        SetStatPopUpContent();
         Invoke(nameof(SetPartnerPopUpContent), 1);
     }
 
@@ -91,14 +95,25 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void SetPartnerPopUpContent()
+    private void SetPartnerPopUpContent()        // 파트너 팝업 콘텐츠 등록
     {
         for (int i = 1; i < (int)E_PartnerCat.MaxCount; i++)
         {
             int index = i;
             GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
             Content content = contentPrefab.GetComponent<Content>();
-            content.Init(_sptrites[index - 1], WGH_PartnerManager.Instance.GetPartnerName(index), () => WGH_PartnerManager.Instance.SpawnPartner(index), (E_PartnerCat)index);
+            content.InitPartner(_partnerSptrites[index - 1], WGH_PartnerManager.Instance.GetPartnerName(index), () => WGH_PartnerManager.Instance.SpawnPartner(index), (E_PartnerCat)index);
+        }
+    }
+
+    private void SetStatPopUpContent()
+    {
+        for(int i = 1; i < (int)E_Stat.MaxCount; i++)
+        {
+            int index = i;
+            GameObject contentPrefab = Instantiate(ContentPrefab, _statContent);
+            Content content = contentPrefab.GetComponent<Content>();
+            content.InitPlayerStat(_statSptrites[index - 1], "dd", (E_Stat)index);
         }
     }
 }

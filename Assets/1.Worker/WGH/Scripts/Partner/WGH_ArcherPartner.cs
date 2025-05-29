@@ -7,6 +7,6 @@ public class WGH_ArcherPartner : WGH_Partner
     protected override void Attack()
     {
         _anim.SetTrigger("isAttack");
-        WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.ArcherCat);
+        MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.ArcherCat);
     }
 }

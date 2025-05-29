@@ -14,16 +14,16 @@ public class WGH_FeverGaze : MonoBehaviour
 
     private void Start()
     {
-        WGH_PlayerDataManager.Instance.OnChangeFeverGaze += IncreaseGaze;
+        PlayerDataManager.Instance.OnChangeFeverGaze += IncreaseGaze;
     }
 
     private void IncreaseGaze()
     {
-        slider.value = WGH_PlayerDataManager.Instance.GetCurFeverGaze();
+        slider.value = PlayerDataManager.Instance.GetCurFeverGaze();
     }
 
     private void OnDisable()
     {
-        WGH_PlayerDataManager.Instance.OnChangeFeverGaze -= IncreaseGaze;
+        PlayerDataManager.Instance.OnChangeFeverGaze -= IncreaseGaze;
     }
 }

@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _topYPos = 1600f;
+        _topYPos = 1570f;
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 
@@ -106,14 +106,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void SetStatPopUpContent()
+    private void SetStatPopUpContent()          // 스탯 팝업 콘텐츠 등록
     {
         for(int i = 1; i < (int)E_Stat.MaxCount; i++)
         {
             int index = i;
             GameObject contentPrefab = Instantiate(ContentPrefab, _statContent);
             Content content = contentPrefab.GetComponent<Content>();
-            content.InitPlayerStat(_statSptrites[index - 1], "dd", (E_Stat)index);
+            content.InitPlayerStat(_statSptrites[index - 1], $"{(E_Stat)index}", (E_Stat)index);
         }
     }
 }

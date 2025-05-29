@@ -25,15 +25,15 @@ public class WGH_CatController : MonoBehaviour
 
     private void Start()
     {
-        WGH_PlayerDataManager.Instance.OnMaxFeverGaze += ChangeIsFever;
-        WGH_PlayerDataManager.Instance.OnEndFeverGaze += ChangeIsFever;
+        PlayerDataManager.Instance.OnMaxFeverGaze += ChangeIsFever;
+        PlayerDataManager.Instance.OnEndFeverGaze += ChangeIsFever;
     }
     private void Update()
     {
         // UI가 아닌 화면 터치
         // 피버게이지가 가득차지 않았을 때
         if (_isFever == false && Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
-            && WGH_PlayerDataManager.Instance.GetFeverGaze() > WGH_PlayerDataManager.Instance.GetCurFeverGaze())
+            && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
         {
             _touch = Input.GetTouch(0);
             if (_touch.phase == TouchPhase.Began)
@@ -51,7 +51,7 @@ public class WGH_CatController : MonoBehaviour
         // UI가 아닌 마우스 클릭
         // 피버게이지가 가득차지 않았을 때
         if (_isFever == false && Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false
-        && WGH_PlayerDataManager.Instance.GetFeverGaze() > WGH_PlayerDataManager.Instance.GetCurFeverGaze())
+        && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
             Attack();
         // 피버게이지가 가득찼을 때
         else if (Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false
@@ -70,14 +70,14 @@ public class WGH_CatController : MonoBehaviour
         if(curTime - _lastAttackTime > _switchDelay) { _isLeftAttack = !_isLeftAttack; }
         if(_isLeftAttack) { _anim.SetBool("isLeft", true); }
 
-        bool isCritical = Random.value <= WGH_PlayerDataManager.Instance.GetCriticalChance();
+        bool isCritical = Random.value <= PlayerDataManager.Instance.GetCriticalChance();
 
         if (isCritical == false)
-            WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
+            MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
         else
-            WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
+            MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
 
-        WGH_PlayerDataManager.Instance.IncreaseCurFeverGaze();
+        PlayerDataManager.Instance.IncreaseCurFeverGaze();
         int randomValue = Random.Range(0, 2);
         if (_isLeftAttack)
         {
@@ -126,7 +126,7 @@ public class WGH_CatController : MonoBehaviour
                 _feverAttackRoutine = null;
                 yield break;
             }
-            WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
+            MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
             RapidAttack();
             yield return waitTime;
             yield return null;

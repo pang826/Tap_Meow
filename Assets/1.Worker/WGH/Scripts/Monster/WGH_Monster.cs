@@ -35,7 +35,7 @@ public class WGH_Monster : MonoBehaviour
     }
     public void Deactive()
     {
-        WGH_PlayerDataManager.Instance.GainGold();
+        PlayerDataManager.Instance.GainGold();
         gameObject.SetActive(false);
     }
     public void OnDIe()

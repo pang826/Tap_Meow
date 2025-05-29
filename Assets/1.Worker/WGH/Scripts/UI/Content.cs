@@ -8,20 +8,22 @@ using UnityEngine.UI;
 public class Content : MonoBehaviour
 {
     public Image Image;
-    public TextMeshProUGUI Tmp;
+    public TextMeshProUGUI DescriptionTmp;
     public Button Button;
+    public TextMeshProUGUI ButtonTmp;
 
     private void Awake()
     {
         Image = GetComponentInChildren<Image>();
-        Tmp = GetComponentInChildren<TextMeshProUGUI>();
+        DescriptionTmp = GetComponentInChildren<TextMeshProUGUI>();
         Button = GetComponentInChildren<Button>();
+        ButtonTmp = Button.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void InitPartner(Sprite image, string text, UnityAction onClickAction, E_PartnerCat catType)
     {
         Image.sprite = image;
-        Tmp.text = text;
+        DescriptionTmp.text = text;
         Button.onClick.RemoveAllListeners();
         UnityAction wrapper = null;
         wrapper = () => 
@@ -42,21 +44,21 @@ public class Content : MonoBehaviour
         if(image != null)
         Image.sprite = image;
         if(text != null)
-        Tmp.text = text;
+        DescriptionTmp.text = text;
         Button.onClick.RemoveAllListeners();
         switch(statType)
         {
             case E_Stat.Damage:
-                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradePlayerDmg);
+                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradePlayerDmg);
                 break;
             case E_Stat.CriticalChance:
-                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradeCriticalChance);
+                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradeCriticalChance);
                 break;
             case E_Stat.CriticalDamage:
-                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradePlayerCriticalDmg);
+                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradePlayerCriticalDmg);
                 break;
             case E_Stat.GoldGainPer:
-                Button.onClick.AddListener(WGH_PlayerDataManager.Instance.UpgradeGoldPer);
+                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradeGoldPer);
                 break;
         }
         

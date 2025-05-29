@@ -7,17 +7,21 @@ public class ProgressManager : MonoBehaviour
 {
     private string savePath;
 
-    private void Start()
+    public int Stage;
+    private void Awake()
     {
         savePath = Application.persistentDataPath + "/save.json";
-
-        // 시작할 때 불러오기
-        //LoadGame();
     }
-
+    private void Start()
+    {
+        LoadGame();
+        
+        MonsterManager.Instance.OnDieMonster += ClearStage;
+    }
     public void SaveGame()
     {
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
+        data.curStage = Stage;
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
     }
@@ -29,6 +33,9 @@ public class ProgressManager : MonoBehaviour
             string json = File.ReadAllText(savePath);
             GameProgress data = JsonUtility.FromJson<GameProgress>(json);
             PlayerDataManager.Instance.LoadProgress(data);
+            MonsterManager.Instance.Init(data.curStage);
         }
     }
+
+    private void ClearStage() { Stage++; }
 }

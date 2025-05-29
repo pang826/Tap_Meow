@@ -15,7 +15,7 @@ public class MonsterManager : MonoBehaviour
     public UnityAction OnBossDie;                   // 보스 몬스터 사망시
 
     [SerializeField] private Transform _spawnPos;   // 몬스터 소환 위치
-    private int _stage;                             // 현재 스테이지
+    [SerializeField] private int _stage;                             // 현재 스테이지
 
     [Header("현재 몬스터 정보")]
     [SerializeField] private float _curHp;
@@ -35,7 +35,7 @@ public class MonsterManager : MonoBehaviour
     {
         OnDieMonster += ClearStage;
         OnDieMonster += () => SpawnMonster(_stage);
-        StartCoroutine(SpawnRoutine(_stage));
+        StartCoroutine(SpawnRoutine());
     }
     /// <summary>
     /// 몬스터 스폰
@@ -59,10 +59,10 @@ public class MonsterManager : MonoBehaviour
     /// <summary>
     /// 최초 소환에 사용
     /// </summary>
-    IEnumerator SpawnRoutine(int stage)
+    IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(1);
-        SpawnMonster(stage);
+        SpawnMonster(_stage);
     }
     private void SetMonster(WGH_Monster monster, float hp, bool isBoss)
     {
@@ -123,5 +123,10 @@ public class MonsterManager : MonoBehaviour
     {
         OnDieMonster -= ClearStage;
         OnDieMonster -= () => SpawnMonster(_stage);
+    }
+
+    public void Init(int stage)
+    {
+        _stage = stage;
     }
 }

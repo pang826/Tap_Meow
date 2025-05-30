@@ -31,35 +31,38 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         // UI가 아닌 화면 터치
-        // 피버게이지가 가득차지 않았을 때
-        if (_isFever == false && Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject() == false
-            && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
+        if (Input.touchCount > 0)
         {
-            _touch = Input.GetTouch(0);
-            if (_touch.phase == TouchPhase.Began)
+            Touch touch = Input.GetTouch(0);
+            // UI 위가 아니라면
+            if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
-                Attack();
+                // 피버게이지가 가득차지 않았을 때
+                if (!_isFever && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
+                {
+                    if (touch.phase == TouchPhase.Began)
+                    Attack();
+                }
+                else if (_isFever)
+                FeverAttack();
+
+                if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
+                _isPushDown = false;
             }
         }
-        else if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject() == false
-            && _isFever)
-            FeverAttack();
-        else if (_touch.phase == TouchPhase.Stationary || _touch.phase == TouchPhase.Moved
-            && EventSystem.current.IsPointerOverGameObject() == false)
-            _isPushDown = false;
 
         // UI가 아닌 마우스 클릭
         // 피버게이지가 가득차지 않았을 때
-        if (_isFever == false && Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false
-        && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
-            Attack();
-        // 피버게이지가 가득찼을 때
-        else if (Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false
-        && _isFever)
-            FeverAttack();
-        // 마우스 클릭을 떼었을 때
-        else if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject() == false)
-            _isPushDown = false;
+        //if (_isFever == false && Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false
+        //&& PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
+        //    Attack();
+        //// 피버게이지가 가득찼을 때
+        //else if (Input.GetMouseButton(0) && EventSystem.current.IsPointerOverGameObject() == false
+        //&& _isFever)
+        //    FeverAttack();
+        //// 마우스 클릭을 떼었을 때
+        //else if (Input.GetMouseButtonUp(0) && EventSystem.current.IsPointerOverGameObject() == false)
+        //    _isPushDown = false;
     }
     /// <summary>
     /// 공격 메서드(애니메이션, 이펙트, 사운드 등을 호출하고 피버게이지 상승)

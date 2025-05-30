@@ -38,6 +38,7 @@ public class ProgressManager : MonoBehaviour
             PlayerDataManager.Instance.LoadProgress(data);
             WGH_PartnerManager.Instance.LoadProgress(data);
             MonsterManager.Instance.Init(data.curStage);
+            Stage = data.curStage;
         }
     }
 

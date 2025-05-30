@@ -45,4 +45,36 @@ public class WGH_PartnerManager : MonoBehaviour
     public string GetPartnerName(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Name; }
     public float GetPartnerDamage(E_PartnerCat catType) { return _spawnParnterDic[catType].GetDamage(); }
     public void UpgradeDamage(E_PartnerCat catType) { _spawnParnterDic[catType].UpgradeDamage(); }
+
+    public List<PartnerSaveData> ExportProgress()
+    {
+        List<PartnerSaveData> saveList = new List<PartnerSaveData>();
+
+        foreach(var partner in _spawnParnterDic)
+        {
+            PartnerSaveData data = new PartnerSaveData
+            {
+                Type = (int)partner.Key,
+                Damage = partner.Value.GetDamage(),
+                AttackSpeed = partner.Value.GetAttackSpeed()
+            };
+            saveList.Add(data);
+        }
+        return saveList;
+    }
+    public void LoadProgress(GameProgress data)
+    {
+        foreach(var partnerData in data.SpawnPartnerList)
+        {
+            if(_partnerDic.TryGetValue((E_PartnerCat)partnerData.Type, out GameObject prefab))
+            {
+                GameObject obj = Instantiate(prefab);
+                obj.transform.position = _spawnPos[partnerData.Type - 1].position;
+                WGH_Partner partner = obj.GetComponent<WGH_Partner>();
+                partner.Init(partnerData.Damage, partnerData.AttackSpeed);
+
+                _spawnParnterDic[(E_PartnerCat)partnerData.Type] = partner;
+            }
+        }
+    }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class WGH_CatController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     private Animator _anim;
 
@@ -32,7 +32,7 @@ public class WGH_CatController : MonoBehaviour
     {
         // UI가 아닌 화면 터치
         // 피버게이지가 가득차지 않았을 때
-        if (_isFever == false && Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
+        if (_isFever == false && Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject() == false
             && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
         {
             _touch = Input.GetTouch(0);
@@ -41,7 +41,7 @@ public class WGH_CatController : MonoBehaviour
                 Attack();
             }
         }
-        else if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false
+        else if (Input.touchCount > 0 && EventSystem.current.IsPointerOverGameObject() == false
             && _isFever)
             FeverAttack();
         else if (_touch.phase == TouchPhase.Stationary || _touch.phase == TouchPhase.Moved

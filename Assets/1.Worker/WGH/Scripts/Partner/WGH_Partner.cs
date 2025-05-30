@@ -44,6 +44,10 @@ public abstract class WGH_Partner : MonoBehaviour
     public virtual void UpgradeDamage()
     { _dmg += _dmg; }
 
+    public virtual float GetAttackSpeed()
+    {
+        return _attackSpped;
+    }
     public virtual void UpgradeAttackSpped(float plusAttackSpped)
     { _attackSpped += plusAttackSpped; }
 }

@@ -1,7 +1,16 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+[Serializable]
+public class PartnerSaveData
+{
+    public int Type;
+    public float Damage;
+    public float AttackSpeed;
+}
 
 [Serializable]
 public class GameProgress
@@ -25,4 +34,5 @@ public class GameProgress
 
     public float partnerAttackSpeed;
 
+    public List<PartnerSaveData> SpawnPartnerList;
 }

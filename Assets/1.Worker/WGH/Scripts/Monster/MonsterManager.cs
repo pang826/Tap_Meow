@@ -61,7 +61,7 @@ public class MonsterManager : MonoBehaviour
     /// </summary>
     IEnumerator SpawnRoutine()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
         SpawnMonster(_stage);
     }
     private void SetMonster(WGH_Monster monster, float hp, bool isBoss)
@@ -73,6 +73,7 @@ public class MonsterManager : MonoBehaviour
 
     public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None)
     {
+        if (_curMonster == null) return;
         switch (hitType)
         {
             case E_AttackType.Attack:

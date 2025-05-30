@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 
         SetStatPopUpContent();
-        Invoke(nameof(SetPartnerPopUpContent), 1);
+        Invoke(nameof(SetPartnerPopUpContent), 3);
     }
 
     private void OnDisable()

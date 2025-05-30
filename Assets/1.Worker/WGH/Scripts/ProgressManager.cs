@@ -21,7 +21,9 @@ public class ProgressManager : MonoBehaviour
     public void SaveGame()
     {
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
+        data.SpawnPartnerList = WGH_PartnerManager.Instance.ExportProgress();
         data.curStage = Stage;
+
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
     }
@@ -32,7 +34,9 @@ public class ProgressManager : MonoBehaviour
         {
             string json = File.ReadAllText(savePath);
             GameProgress data = JsonUtility.FromJson<GameProgress>(json);
+
             PlayerDataManager.Instance.LoadProgress(data);
+            WGH_PartnerManager.Instance.LoadProgress(data);
             MonsterManager.Instance.Init(data.curStage);
         }
     }

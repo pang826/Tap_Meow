@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+
 
 public class WGH_ParserMonster : MonoBehaviour
 {
@@ -46,16 +48,11 @@ public class WGH_ParserMonster : MonoBehaviour
             try
             {
                 int stage = int.Parse(tokens[0].Trim());
-                string monsterType = tokens[1].Trim();
-                float monsterHp = float.Parse(tokens[2].Trim());
+                string monType = tokens[1].Trim();
+                bool isBoss = bool.Parse(tokens[2].Trim());
+                string theme = tokens[3].Trim();
 
-                Color color;
-                if (!ColorUtility.TryParseHtmlString(tokens[3].Trim(), out color))
-                    color = Color.white;
-
-                bool isBoss = bool.Parse(tokens[4].Trim());
-
-                var data = new WGH_MonsterData(stage, monsterType, monsterHp, color, isBoss);
+                var data = new WGH_MonsterData(stage, monType, isBoss, theme);
                 monsterDataList.Add(data);
             }
             catch (System.Exception ex)

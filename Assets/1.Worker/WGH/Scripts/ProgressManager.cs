@@ -5,18 +5,25 @@ using System.IO;
 
 public class ProgressManager : MonoBehaviour
 {
+    public static ProgressManager Instance;
     private string savePath;
 
-    public int Stage;
+    public int Stage = 1;
+    public int Round = 1;
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
+
         savePath = Application.persistentDataPath + "/save.json";
     }
     private void Start()
     {
         LoadGame();
-        
-        MonsterManager.Instance.OnDieMonster += ClearStage;
+        MonsterManager.Instance.OnDieMonster += ClearRound;
+        MonsterManager.Instance.OnBossDie += ClearStage;
     }
     public void SaveGame()
     {
@@ -41,6 +48,23 @@ public class ProgressManager : MonoBehaviour
             Stage = data.curStage;
         }
     }
-
     private void ClearStage() { Stage++; }
+    private void ClearRound() 
+    { 
+        if (Round < 9)
+        { 
+            Round++;
+            return;
+        } 
+        if(Round == 9)
+        {
+
+        }
+    }
+
+    private void OnDisable()
+    {
+        MonsterManager.Instance.OnDieMonster -= ClearRound;
+        MonsterManager.Instance.OnBossDie -= ClearStage;
+    }
 }

@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 127.8, y: -0.000030517578}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 198.29993, y: -46.6}
+  m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &9135929144679266626
 CanvasRenderer:
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -377.28857, w: 0}
+  m_margin: {x: 0, y: 0, z: -683.10565, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -169,7 +169,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -1.7000732, y: 3.3996239}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &1937759319570158590
 CanvasRenderer:
@@ -261,8 +261,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Image: {fileID: 0}
-  Tmp: {fileID: 0}
+  DescriptionTmp: {fileID: 0}
   Button: {fileID: 0}
+  ButtonTmp: {fileID: 0}
 --- !u!1 &4552800382187487645
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,8 +300,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 724, y: -0.000030517578}
-  m_SizeDelta: {x: 160, y: 100}
+  m_AnchoredPosition: {x: 1185, y: -50.00004}
+  m_SizeDelta: {x: 160, y: 200}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1985746825705287794
 CanvasRenderer:

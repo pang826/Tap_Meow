@@ -42,7 +42,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        _topYPos = 1570f;
+        _topYPos = 2500f;
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 

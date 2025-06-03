@@ -15,7 +15,6 @@ public class MonsterManager : MonoBehaviour
     public UnityAction OnBossDie;                   // 보스 몬스터 사망시
 
     private Transform _spawnPos;                    // 몬스터 소환 위치
-    private int _stage = 1;                         // 현재 스테이지
     private int _monsterIndex = 1;
     public List<MonsterTheme> _monsterThemes;
 
@@ -37,7 +36,6 @@ public class MonsterManager : MonoBehaviour
     private void Start()
     {
         _spawnPos = GameObject.FindGameObjectWithTag("MonsterSpawnPos").transform;
-        OnBossDie += ClearStage;
         OnDieMonster += HandleMonsterDefeat;
         StartCoroutine(SpawnRoutine());
     }
@@ -64,9 +62,9 @@ public class MonsterManager : MonoBehaviour
         }
         _curMonster.Init(monSprite);
         if (!_isBoss)
-            SetMonster(_curMonster, _baseHp * (int)(_stage * 1.2f));
+            SetMonster(_curMonster, _baseHp * (int)(ProgressManager.Instance.GetStage() * 1.2f));
         else
-            SetMonster(_curMonster, _baseHp * (int)(_stage * 5f));
+            SetMonster(_curMonster, _baseHp * (int)(ProgressManager.Instance.GetStage() * 5f));
         
         // 스폰할 때 이벤트 발동
         OnSpawnMonster?.Invoke();
@@ -77,7 +75,7 @@ public class MonsterManager : MonoBehaviour
     IEnumerator SpawnRoutine()
     {
         yield return new WaitForSeconds(3);
-        SpawnMonster(_stage);
+        SpawnMonster(ProgressManager.Instance.GetStage());
     }
     private void SetMonster(WGH_Monster monster, long hp)
     {
@@ -122,7 +120,6 @@ public class MonsterManager : MonoBehaviour
         if (_isBoss)
         {
             OnBossDie?.Invoke(); // 스테이지 올라감
-            _stage++;
             _monsterIndex = 1;
         }
         else
@@ -130,7 +127,7 @@ public class MonsterManager : MonoBehaviour
             _monsterIndex++;
         }
 
-        SpawnMonster(_stage);
+        SpawnMonster(ProgressManager.Instance.GetStage());
     }
     private Sprite GetRandom(List<Sprite> sprites)
     {
@@ -139,19 +136,9 @@ public class MonsterManager : MonoBehaviour
     }
 
     public long GetCurMonHp() { return _curHp; }
-    /// <summary>
-    /// 스테이지 클리어 시 동작하는 메서드
-    /// </summary>
-    private void ClearStage() { _stage++; }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        OnBossDie -= ClearStage;
-        OnDieMonster -= () => SpawnMonster(_stage);
-    }
-
-    public void Init(int stage)
-    {
-        _stage = stage;
+        OnDieMonster -= HandleMonsterDefeat;
     }
 }

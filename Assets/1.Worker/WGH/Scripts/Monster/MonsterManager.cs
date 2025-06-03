@@ -9,18 +9,19 @@ public class MonsterManager : MonoBehaviour
 
     [SerializeField] private WGH_ParserMonster _parser;
 
+    public UnityAction OnHit;                       // 피격시
     public UnityAction OnSpawnMonster;              // 몬스터 소환시
     public UnityAction OnDieMonster;                // 몬스터 사망시
     public UnityAction OnBossDie;                   // 보스 몬스터 사망시
 
-    [SerializeField] private Transform _spawnPos;   // 몬스터 소환 위치
+    private Transform _spawnPos;                    // 몬스터 소환 위치
     private int _stage = 1;                         // 현재 스테이지
     private int _monsterIndex = 1;
     public List<MonsterTheme> _monsterThemes;
 
     [Header("현재 몬스터 정보")]
     private int _baseHp = 10;
-    [SerializeField] private double _curHp;
+    [SerializeField] private long _curHp;
     [SerializeField] private bool _isBoss;
     //[SerializeField] private float _dropGold;
     [SerializeField] private WGH_Monster _curMonster;
@@ -35,6 +36,7 @@ public class MonsterManager : MonoBehaviour
 
     private void Start()
     {
+        _spawnPos = GameObject.FindGameObjectWithTag("MonsterSpawnPos").transform;
         OnBossDie += ClearStage;
         OnDieMonster += HandleMonsterDefeat;
         StartCoroutine(SpawnRoutine());
@@ -62,9 +64,9 @@ public class MonsterManager : MonoBehaviour
         }
         _curMonster.Init(monSprite);
         if (!_isBoss)
-            SetMonster(_curMonster, _baseHp * (_stage * 1.2f));
+            SetMonster(_curMonster, _baseHp * (int)(_stage * 1.2f));
         else
-            SetMonster(_curMonster, _baseHp * (_stage * 5f));
+            SetMonster(_curMonster, _baseHp * (int)(_stage * 5f));
         
         // 스폰할 때 이벤트 발동
         OnSpawnMonster?.Invoke();
@@ -77,10 +79,12 @@ public class MonsterManager : MonoBehaviour
         yield return new WaitForSeconds(3);
         SpawnMonster(_stage);
     }
-    private void SetMonster(WGH_Monster monster, float hp)
+    private void SetMonster(WGH_Monster monster, long hp)
     {
         _curMonster = monster;
         _curHp = hp;
+        if (_isBoss) monster.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        else monster.transform.localScale = Vector3.one;
     }
 
     public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None)
@@ -93,14 +97,14 @@ public class MonsterManager : MonoBehaviour
                 break;
 
             case E_AttackType.Critical:
-                _curHp -= PlayerDataManager.Instance.GetCriticalDamage();
+                _curHp -= (int)PlayerDataManager.Instance.GetCriticalDamage();
                 break;
 
             case E_AttackType.DefenseReduction:
                 break;
 
             case E_AttackType.PartnerAttack:
-                _curHp -= WGH_PartnerManager.Instance.GetPartnerDamage(catType);
+                _curHp -= (int)WGH_PartnerManager.Instance.GetPartnerDamage(catType);
                 break;
         }
         if (_curHp <= 0f)
@@ -109,6 +113,7 @@ public class MonsterManager : MonoBehaviour
             OnDieMonster?.Invoke();
             return;
         }
+        OnHit?.Invoke();
         _curMonster?.TakeDamage();
     }
 
@@ -132,6 +137,8 @@ public class MonsterManager : MonoBehaviour
         if (sprites == null || sprites.Count == 0) return null;
         return sprites[Random.Range(0, sprites.Count)];
     }
+
+    public long GetCurMonHp() { return _curHp; }
     /// <summary>
     /// 스테이지 클리어 시 동작하는 메서드
     /// </summary>

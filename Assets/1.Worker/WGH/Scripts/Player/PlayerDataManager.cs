@@ -6,7 +6,7 @@ public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance { get; private set; }
 
-    [SerializeField, Header("데미지")] private float _playerDmg;                         // 플레이어 데미지
+    [SerializeField, Header("데미지")] private long _playerDmg;                         // 플레이어 데미지
     
     [SerializeField, Header("크리티컬 확률")] private float _criticalChance;             // 크리티컬 확률
     [SerializeField, Header("크리티컬 데미지")] private float _playerCriticalPer;        // 플레이어 크리티컬 데미지
@@ -45,7 +45,7 @@ public class PlayerDataManager : MonoBehaviour
     private int _goldUpgradePrice = 10;
     // 메서드
     #region // 데미지
-    public float GetPlayerDmg() { return _playerDmg; }                                  // 플레이어 데미지 값을 가져오는 메서드
+    public long GetPlayerDmg() { return _playerDmg; }                                  // 플레이어 데미지 값을 가져오는 메서드
     public void UpgradePlayerDmg() {                                                    // 플레이어 데미지 강화 메서드(영구적)
         if (_curGold < _damageUpgradePrice) return;
         _playerDmg += _playerDmg;
@@ -53,7 +53,7 @@ public class PlayerDataManager : MonoBehaviour
         _damageUpgradePrice += 10;
         OnUpgradeDmg?.Invoke();
     }                        
-    public void ReinforcePlayerDmg(float plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
+    public void ReinforcePlayerDmg(int plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
     { StartCoroutine(UpgredePlayerDmgRoutine(plusDmg, time)); }
     #endregion
     #region // 크리티컬
@@ -110,7 +110,7 @@ public class PlayerDataManager : MonoBehaviour
     public int GetCurGold() { return _curGold; }                                        // 현재 골드 반환
     public float GetPartnerSpeed() { return _partnerAttackSpeed; }                      // 파트너 공속 반환
     // 코루틴
-    IEnumerator UpgredePlayerDmgRoutine(float plusDmg, float time)                      // ReinforcePlayerDmg 메서드 용 코루틴
+    IEnumerator UpgredePlayerDmgRoutine(int plusDmg, float time)                      // ReinforcePlayerDmg 메서드 용 코루틴
     {
         _playerDmg += plusDmg;
         yield return new WaitForSeconds(time);

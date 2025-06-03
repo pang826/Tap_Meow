@@ -17,7 +17,7 @@ public class GameProgress
 {
     public int curStage;
 
-    public float playerDmg;
+    public long playerDmg;
     public float criticalChance;
     public float criticalDmgPercent;
 

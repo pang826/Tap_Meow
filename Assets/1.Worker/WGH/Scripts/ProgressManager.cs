@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Events;
 
 public class ProgressManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class ProgressManager : MonoBehaviour
     private string savePath;
 
     private int _stage = 1;
+
+    public UnityAction OnChangeTheme;
     private void Awake()
     {
         if (Instance == null)
@@ -45,9 +48,7 @@ public class ProgressManager : MonoBehaviour
             _stage = data.curStage;
         }
     }
-    private void ClearStage() { _stage++;
-        Debug.Log($"{_stage} 현재 스테이지");
-    }
+    private void ClearStage() { _stage++; if (_stage % 5 == 1) OnChangeTheme?.Invoke(); }
 
     public int GetStage() { return _stage; }
     private void OnDisable()

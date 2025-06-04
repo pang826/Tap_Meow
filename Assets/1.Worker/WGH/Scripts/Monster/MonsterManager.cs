@@ -81,7 +81,7 @@ public class MonsterManager : MonoBehaviour
     {
         _curMonster = monster;
         _curHp = hp;
-        if (_isBoss) monster.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        if (_isBoss) monster.transform.localScale = new Vector3(1.8f, 1.8f, 1.8f);
         else monster.transform.localScale = Vector3.one;
     }
 

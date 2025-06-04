@@ -6,6 +6,7 @@ public abstract class WGH_Partner : MonoBehaviour
 {
     protected float _dmg;
     protected float _attackSpped;
+    protected int _level;
 
     protected float _curTime;
     protected float _attackCoolTime;

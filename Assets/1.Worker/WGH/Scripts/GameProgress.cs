@@ -10,6 +10,7 @@ public class PartnerSaveData
     public int Type;
     public float Damage;
     public float AttackSpeed;
+    public int Level;
 }
 
 [Serializable]

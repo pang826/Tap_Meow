@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -20,19 +21,25 @@ public class Content : MonoBehaviour
         ButtonTmp = Button.GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public void InitPartner(Sprite image, string text, UnityAction onClickAction, E_PartnerCat catType)
+    public void InitPartner(Sprite image, string text, Func<bool> onClickAction, E_PartnerCat catType, long cost)
     {
         Image.sprite = image;
         DescriptionTmp.text = text;
+        Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{cost}";
         Button.onClick.RemoveAllListeners();
+
+        // TODO : 돈이 없을 경우 onClickAction이 진행되지 않도록 설정해야 함!!!!
         UnityAction wrapper = null;
         wrapper = () => 
         { 
-            onClickAction.Invoke(); 
+            bool isActive = onClickAction.Invoke();
+            if (isActive == false) return;
+
+            Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{PartnerManager.Instance.GetCurCost(catType)}";
             Button.onClick.RemoveListener(wrapper); 
             Button.onClick.AddListener(() =>
             {
-                WGH_PartnerManager.Instance.UpgradeDamage(catType);
+                PartnerManager.Instance.UpgradeDamage(catType, Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>());
             }); 
             
         };
@@ -61,6 +68,10 @@ public class Content : MonoBehaviour
                 Button.onClick.AddListener(PlayerDataManager.Instance.UpgradeGoldPer);
                 break;
         }
-        
+    }
+
+    public void SetPartnerText(E_PartnerCat catType)
+    {
+
     }
 }

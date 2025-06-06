@@ -22,4 +22,9 @@ public class GoldFloating : MonoBehaviour
     {
         _text.text = $"{PlayerDataManager.Instance.GetCurGold()} G";
     }
+
+    private void OnDisable()
+    {
+        PlayerDataManager.Instance.OnChangeGold -= DisplayCurGold;
+    }
 }

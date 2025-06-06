@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WGH_MagePartner : WGH_Partner
+public class WGH_MagePartner : Partner
 {
     protected override void Attack()
     {

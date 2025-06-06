@@ -102,7 +102,9 @@ public class UIManager : MonoBehaviour
             int index = i;
             GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
             Content content = contentPrefab.GetComponent<Content>();
-            content.InitPartner(_partnerSptrites[index - 1], WGH_PartnerManager.Instance.GetPartnerName(index), () => WGH_PartnerManager.Instance.SpawnPartner(index), (E_PartnerCat)index);
+            Debug.Log((E_PartnerCat)index);
+            content.InitPartner(_partnerSptrites[index - 1], PartnerManager.Instance.GetPartnerName(index), 
+                () => PartnerManager.Instance.SpawnPartner(index), (E_PartnerCat)index, PartnerManager.Instance.GetPartnerCost(index));
         }
     }
 

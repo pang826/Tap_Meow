@@ -41,7 +41,7 @@ public class WGH_ParsePartner : MonoBehaviour
 
             string[] tokens = line.Split(',');
 
-            if (tokens.Length < 3) continue;
+            if (tokens.Length < 4) continue;
 
             try
             {
@@ -49,8 +49,9 @@ public class WGH_ParsePartner : MonoBehaviour
                 string partnerName = tokens[1].Trim();
                 float partnerDmg = float.Parse(tokens[2].Trim());
                 float partnerAttackSpeed = float.Parse(tokens[3].Trim());
-
-                var data = new WGH_PartnerData(num, partnerName, partnerDmg, partnerAttackSpeed);
+                long cost = long.Parse(tokens[4].Trim());
+                Debug.Log($" 넘버{num}, 이름{partnerName}, 데미지{partnerDmg}, 공속{partnerAttackSpeed}, 비용{cost}");
+                var data = new WGH_PartnerData(num, partnerName, partnerDmg, partnerAttackSpeed, cost);
                 partnerDataList.Add(data);
             }
             catch (System.Exception ex)

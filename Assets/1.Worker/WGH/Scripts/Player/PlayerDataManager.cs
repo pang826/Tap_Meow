@@ -49,7 +49,7 @@ public class PlayerDataManager : MonoBehaviour
     public void UpgradePlayerDmg() {                                                    // 플레이어 데미지 강화 메서드(영구적)
         if (_curGold < _damageUpgradePrice) return;
         _playerDmg += _playerDmg;
-        _curGold -= _damageUpgradePrice;
+        ConsumeGold(_damageUpgradePrice);
         _damageUpgradePrice += 10;
         OnUpgradeDmg?.Invoke();
     }                        
@@ -61,7 +61,7 @@ public class PlayerDataManager : MonoBehaviour
     public void UpgradeCriticalChance() {                                               // 크리티컬 확률 강화 메서드(영구적)
         if(_curGold < _criticalChanceUpgradePrice) return;
         _criticalChance++;
-        _curGold -= _criticalChanceUpgradePrice;
+        ConsumeGold(_criticalChanceUpgradePrice);
         _criticalChanceUpgradePrice += 10;
         OnUpgradeCriticalChance?.Invoke();
     }                          
@@ -73,7 +73,7 @@ public class PlayerDataManager : MonoBehaviour
     public void UpgradePlayerCriticalDmg() {                                            // 크리티컬 데미지 증가율 강화 메서드(영구적)
         if(_curGold < _criticalDamageUpgradePrice) return;
         _playerCriticalPer++;
-        _curGold -= _criticalDamageUpgradePrice;
+        ConsumeGold(_criticalDamageUpgradePrice);
         _criticalDamageUpgradePrice += 10;
         OnUpgradeCriticalDmg?.Invoke();
     }
@@ -98,7 +98,7 @@ public class PlayerDataManager : MonoBehaviour
         if(_curGold < _goldUpgradePrice) return;
         _goldGainPer += _upgradeGoldPer;
         _upgradeGoldPer++;
-        _curGold -= _goldUpgradePrice;
+        ConsumeGold(_goldUpgradePrice);
         _goldUpgradePrice += 10;
         OnUpgradeGold?.Invoke();
     }
@@ -108,6 +108,7 @@ public class PlayerDataManager : MonoBehaviour
         OnChangeGold?.Invoke();
     }
     public int GetCurGold() { return _curGold; }                                        // 현재 골드 반환
+    public void ConsumeGold(int gold) { _curGold -= gold; OnChangeGold?.Invoke(); }
     public float GetPartnerSpeed() { return _partnerAttackSpeed; }                      // 파트너 공속 반환
     // 코루틴
     IEnumerator UpgredePlayerDmgRoutine(int plusDmg, float time)                      // ReinforcePlayerDmg 메서드 용 코루틴

@@ -102,7 +102,7 @@ public class MonsterManager : MonoBehaviour
                 break;
 
             case E_AttackType.PartnerAttack:
-                _curHp -= (int)WGH_PartnerManager.Instance.GetPartnerDamage(catType);
+                _curHp -= (int)PartnerManager.Instance.GetPartnerDamage(catType);
                 break;
         }
         if (_curHp <= 0f)

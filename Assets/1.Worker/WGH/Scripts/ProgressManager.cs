@@ -29,7 +29,7 @@ public class ProgressManager : MonoBehaviour
     public void SaveGame()
     {
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
-        data.SpawnPartnerList = WGH_PartnerManager.Instance.ExportProgress();
+        data.SpawnPartnerList = PartnerManager.Instance.ExportProgress();
         data.curStage = _stage;
 
         string json = JsonUtility.ToJson(data, true);
@@ -44,7 +44,7 @@ public class ProgressManager : MonoBehaviour
             GameProgress data = JsonUtility.FromJson<GameProgress>(json);
 
             PlayerDataManager.Instance.LoadProgress(data);
-            WGH_PartnerManager.Instance.LoadProgress(data);
+            PartnerManager.Instance.LoadProgress(data);
             _stage = data.curStage;
         }
     }

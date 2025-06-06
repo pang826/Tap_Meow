@@ -8,11 +8,13 @@ public class WGH_PartnerData
     public string Name;
     public float Damage;
     public float AttackSpeed;
-    public WGH_PartnerData(int num, string name, float dmg, float attackSpeed)
+    public long Cost;
+    public WGH_PartnerData(int num, string name, float dmg, float attackSpeed, long cost)
     {
         Number = num;
         Name = name;
         Damage = dmg;
         AttackSpeed = attackSpeed;
+        Cost = cost;
     }
 }

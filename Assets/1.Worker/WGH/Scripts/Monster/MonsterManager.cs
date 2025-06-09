@@ -141,4 +141,8 @@ public class MonsterManager : MonoBehaviour
     {
         OnDieMonster -= HandleMonsterDefeat;
     }
+
+    // 세이브 & 로드 용 메서드
+    public int GetCurMonsterIndex() { return _monsterIndex; }
+    public void SetCurMonsterIndex(int index) {  _monsterIndex = index; }
 }

@@ -31,6 +31,7 @@ public class ProgressManager : MonoBehaviour
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
         data.SpawnPartnerList = PartnerManager.Instance.ExportProgress();
         data.curStage = _stage;
+        data.curMonsterIndex = MonsterManager.Instance.GetCurMonsterIndex();
 
         string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(savePath, json);
@@ -46,6 +47,7 @@ public class ProgressManager : MonoBehaviour
             PlayerDataManager.Instance.LoadProgress(data);
             PartnerManager.Instance.LoadProgress(data);
             _stage = data.curStage;
+            MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);
         }
 
         SoundManager.Instance.PlayBGM(E_BGM.BGM2, 0.04f);

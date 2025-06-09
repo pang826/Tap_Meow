@@ -18,6 +18,7 @@ public class PartnerSaveData
 public class GameProgress
 {
     public int curStage;
+    public int curMonsterIndex;
 
     public long playerDmg;
     public float criticalChance;

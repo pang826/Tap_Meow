@@ -50,7 +50,7 @@ public class WGH_ParsePartner : MonoBehaviour
                 float partnerDmg = float.Parse(tokens[2].Trim());
                 float partnerAttackSpeed = float.Parse(tokens[3].Trim());
                 long cost = long.Parse(tokens[4].Trim());
-                Debug.Log($" 넘버{num}, 이름{partnerName}, 데미지{partnerDmg}, 공속{partnerAttackSpeed}, 비용{cost}");
+
                 var data = new WGH_PartnerData(num, partnerName, partnerDmg, partnerAttackSpeed, cost);
                 partnerDataList.Add(data);
             }

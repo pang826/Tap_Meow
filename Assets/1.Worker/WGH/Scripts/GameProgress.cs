@@ -34,7 +34,5 @@ public class GameProgress
     public int feverGaze;
     public int curFeverGaze;
 
-    public float partnerAttackSpeed;
-
     public List<PartnerSaveData> SpawnPartnerList;
 }

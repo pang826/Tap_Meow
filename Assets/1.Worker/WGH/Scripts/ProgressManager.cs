@@ -47,6 +47,8 @@ public class ProgressManager : MonoBehaviour
             PartnerManager.Instance.LoadProgress(data);
             _stage = data.curStage;
         }
+
+        SoundManager.Instance.PlayBGM(E_BGM.BGM2, 0.04f);
     }
     private void ClearStage() { _stage++; if (_stage % 5 == 1) OnChangeTheme?.Invoke(); }
 

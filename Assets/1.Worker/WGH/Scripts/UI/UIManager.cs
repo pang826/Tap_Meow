@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         _statPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_statPopUpButton));
         _partnerPopUpButton.onClick.AddListener(() => MoveScrollViewUp(_partnerPopUpButton));
 
-        SetStatPopUpContent();
+        Invoke(nameof(SetStatPopUpContent), 3);
         Invoke(nameof(SetPartnerPopUpContent), 3);
     }
 
@@ -102,7 +102,7 @@ public class UIManager : MonoBehaviour
             int index = i;
             GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
             Content content = contentPrefab.GetComponent<Content>();
-            Debug.Log((E_PartnerCat)index);
+            
             content.InitPartner(_partnerSptrites[index - 1], PartnerManager.Instance.GetPartnerName(index), 
                 () => PartnerManager.Instance.SpawnPartner(index), (E_PartnerCat)index, PartnerManager.Instance.GetPartnerCost(index));
         }
@@ -115,7 +115,7 @@ public class UIManager : MonoBehaviour
             int index = i;
             GameObject contentPrefab = Instantiate(ContentPrefab, _statContent);
             Content content = contentPrefab.GetComponent<Content>();
-            content.InitPlayerStat(_statSptrites[index - 1], $"{(E_Stat)index}", (E_Stat)index);
+            content.InitPlayerStat(_statSptrites[index - 1], $"{(E_Stat)index}", (E_Stat)index, PlayerDataManager.Instance.GetPrice((E_Stat)index));
         }
     }
 }

@@ -28,7 +28,6 @@ public class Content : MonoBehaviour
         Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{cost}";
         Button.onClick.RemoveAllListeners();
 
-        // TODO : 돈이 없을 경우 onClickAction이 진행되지 않도록 설정해야 함!!!!
         UnityAction wrapper = null;
         wrapper = () => 
         { 
@@ -46,32 +45,19 @@ public class Content : MonoBehaviour
         Button.onClick.AddListener(wrapper);
     }
 
-    public void InitPlayerStat(Sprite image, string text, E_Stat statType)
+    public void InitPlayerStat(Sprite image, string text, E_Stat statType, long cost)
     {
-        if(image != null)
+        TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        if (image != null)
         Image.sprite = image;
         if(text != null)
         DescriptionTmp.text = text;
+        buttonText.text = $"{cost}";
         Button.onClick.RemoveAllListeners();
-        switch(statType)
-        {
-            case E_Stat.Damage:
-                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradePlayerDmg);
-                break;
-            case E_Stat.CriticalChance:
-                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradeCriticalChance);
-                break;
-            case E_Stat.CriticalDamage:
-                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradePlayerCriticalDmg);
-                break;
-            case E_Stat.GoldGainPer:
-                Button.onClick.AddListener(PlayerDataManager.Instance.UpgradeGoldPer);
-                break;
-        }
-    }
-
-    public void SetPartnerText(E_PartnerCat catType)
-    {
-
+        Button.onClick.AddListener(() => { 
+            //PlayerDataManager.Instance.GetUpgradeMethod(statType)?.Invoke(); 
+            PlayerDataManager.Instance.UpgradeStat(statType);
+            buttonText.text = $"{PlayerDataManager.Instance.GetPrice(statType)}"; 
+        });
     }
 }

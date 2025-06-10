@@ -7,7 +7,6 @@ public class WGH_Monster : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _render;
     private Animator _anim;
-    private bool _isBoss;
 
     private void Awake()
     {
@@ -19,12 +18,9 @@ public class WGH_Monster : MonoBehaviour
         // TODO : 데미지 받을 때 애니메이션, 이펙트, 사운드 등 발동
     }
 
-    public void Init(Sprite newSprite, Color color)
+    public void Init(Sprite newSprite)
     {
         _render.sprite = newSprite;
-        SpriteRenderer render = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if (render != null)
-            render.color = color;
         gameObject.SetActive(true);
     }
     public void SetColor(Color color)
@@ -35,7 +31,7 @@ public class WGH_Monster : MonoBehaviour
     }
     public void Deactive()
     {
-        WGH_PlayerDataManager.Instance.GainGold();
+        PlayerDataManager.Instance.GainGold();
         gameObject.SetActive(false);
     }
     public void OnDIe()

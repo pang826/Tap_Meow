@@ -743,7 +743,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _isShowBreakPoint: 1
   _midBreakRatio: 0.359
-  _topBreakRatio: 0.99
+  _topBreakRatio: 0.897
   _viewControlBtn: {fileID: 8608925721973261647}
   _closeBtn: {fileID: 9020131228698773920}
   _contentsArea: {fileID: 7887474786192666212}

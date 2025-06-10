@@ -6,16 +6,14 @@ public class WGH_MonsterData
 {
     public int Stage;
     public string MonType;
-    public float Hp;
-    public Color MonColor;
     public bool IsBoss;
+    public string Theme;
     
-    public WGH_MonsterData(int stage, string monsterType, float monsterHp, Color monsterColor, bool isBoss)
+    public WGH_MonsterData(int stage, string monsterType, bool isBoss, string theme)
     {
         Stage = stage;
         MonType = monsterType;
-        Hp = monsterHp;
-        MonColor = monsterColor;
         IsBoss = isBoss;
+        Theme = theme;
     }
 }

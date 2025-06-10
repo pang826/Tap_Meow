@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WGH_MagePartner : WGH_Partner
+public class WGH_MagePartner : Partner
 {
     protected override void Attack()
     {
         _anim.SetTrigger("isAttack");
-        WGH_MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.MageCat);
+        MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.MageCat);
     }
 }

@@ -37,17 +37,24 @@ public class PlayerController : MonoBehaviour
             // UI 위가 아니라면
             if (!EventSystem.current.IsPointerOverGameObject(touch.fingerId))
             {
-                // 피버게이지가 가득차지 않았을 때
-                if (!_isFever && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
+                if (touch.phase == TouchPhase.Began)
                 {
-                    if (touch.phase == TouchPhase.Began)
-                    Attack();
+                    _isPushDown = true;
+                    if (_isFever)
+                        FeverAttack();
+                    else if (!_isFever && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
+                        Attack(); 
                 }
-                else if (_isFever)
-                FeverAttack();
+                else if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
+                {
+                    _isPushDown = false;
 
-                if (touch.phase == TouchPhase.Stationary || touch.phase == TouchPhase.Moved)
-                _isPushDown = false;
+                    if (_feverAttackRoutine != null)
+                    {
+                        StopCoroutine(_feverAttackRoutine);
+                        _feverAttackRoutine = null;
+                    }
+                }
             }
         }
 
@@ -126,18 +133,15 @@ public class PlayerController : MonoBehaviour
     IEnumerator FeverAttackRoutine()
     {
         WaitForSeconds waitTime = new WaitForSeconds(0.1f);
-        while (true)
+        while (_isPushDown && _isFever)
         {
-            if (!_isPushDown || !_isFever)
-            {
-                _feverAttackRoutine = null;
-                yield break;
-            }
             MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
             RapidAttack();
             yield return waitTime;
-            yield return null;
         }
+
+        // 루프 탈출 시 코루틴 참조 해제
+        _feverAttackRoutine = null;
     }
     private void ChangeIsFever() { _isFever = !_isFever; }
 
@@ -173,5 +177,11 @@ public class PlayerController : MonoBehaviour
                     break;
             }
         }
+    }
+
+    private void OnDisable()
+    {
+        PlayerDataManager.Instance.OnMaxFeverGaze -= ChangeIsFever;
+        PlayerDataManager.Instance.OnEndFeverGaze -= ChangeIsFever;
     }
 }

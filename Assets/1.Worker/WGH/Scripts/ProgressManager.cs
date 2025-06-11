@@ -7,7 +7,7 @@ using UnityEngine.Events;
 public class ProgressManager : MonoBehaviour
 {
     public static ProgressManager Instance;
-    private string savePath;
+    private string _savePath;
 
     private int _stage = 1;
 
@@ -19,7 +19,7 @@ public class ProgressManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        savePath = Application.persistentDataPath + "/save.json";
+        _savePath = Application.persistentDataPath + "/save.json";
     }
     private void Start()
     {
@@ -34,14 +34,14 @@ public class ProgressManager : MonoBehaviour
         data.curMonsterIndex = MonsterManager.Instance.GetCurMonsterIndex();
 
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
+        File.WriteAllText(_savePath, json);
     }
 
     public void LoadGame()
     {
-        if (File.Exists(savePath))
+        if (File.Exists(_savePath))
         {
-            string json = File.ReadAllText(savePath);
+            string json = File.ReadAllText(_savePath);
             GameProgress data = JsonUtility.FromJson<GameProgress>(json);
 
             PlayerDataManager.Instance.LoadProgress(data);
@@ -50,7 +50,7 @@ public class ProgressManager : MonoBehaviour
             MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);
         }
 
-        SoundManager.Instance.PlayBGM(E_BGM.BGM2, 0.04f);
+        SoundManager.Instance.PlayBGM(E_BGM.BGM2, 0.2f);
     }
     private void ClearStage() { _stage++; if (_stage % 5 == 1) OnChangeTheme?.Invoke(); }
 

@@ -7,7 +7,7 @@ public class MonsterManager : MonoBehaviour
 {
     public static MonsterManager Instance;
 
-    [SerializeField] private WGH_ParserMonster _parser;
+    private WGH_ParserMonster _parser;
 
     public UnityAction OnHit;                       // 피격시
     public UnityAction OnSpawnMonster;              // 몬스터 소환시
@@ -31,6 +31,8 @@ public class MonsterManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+
+        _parser = GameObject.FindGameObjectWithTag("MonsterParser").GetComponent<WGH_ParserMonster>();
     }
 
     private void Start()

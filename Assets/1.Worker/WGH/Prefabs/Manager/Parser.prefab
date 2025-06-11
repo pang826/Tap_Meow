@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8798930265596404726}
   m_Layer: 0
   m_Name: MonsterCSVParser
-  m_TagString: Untagged
+  m_TagString: MonsterParser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6787055403194128353}
   m_Layer: 0
   m_Name: PartnerCSVParser
-  m_TagString: Untagged
+  m_TagString: PartnerParser
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

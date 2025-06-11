@@ -85,8 +85,8 @@ public class PlayerDataManager : MonoBehaviour
         }
     }
     public long GetPlayerDmg() { return _playerDmg; }                                  // 플레이어 데미지 값을 가져오는 메서드
-    public void ReinforcePlayerDmg(int plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
-    { StartCoroutine(UpgredePlayerDmgRoutine(plusDmg, time)); }
+    //public void ReinforcePlayerDmg(int plusDmg, float time)                           // 플레이어 데미지를 일시적으로 증가시키는 메서드(비영구적, 버프에 사용)
+    //{ StartCoroutine(UpgredePlayerDmgRoutine(plusDmg, time)); }
     public float GetCriticalChance() { return _criticalChance / 100f; }                 // 현재 크리티컬 확률 반환 메서드
     public float GetCriticalDamage()                                                    // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
     {
@@ -105,7 +105,6 @@ public class PlayerDataManager : MonoBehaviour
             OnMaxFeverGaze?.Invoke();
     }
     private void DecreaseFeverGaze() { StartCoroutine(DecreaseFeverGazeRoutine()); }    // 피버게이지 감소
-    public float GetGoldPer() { return _goldGainPer; }                                  // 골드 획득량 반환
     public void GainGold()                                                              // 골드 획득
     {
         _curGold += _goldGainPer;

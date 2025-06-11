@@ -20,9 +20,14 @@ public class PartnerManager : MonoBehaviour
         else
             Destroy(gameObject);
 
-        _partnerDic[E_PartnerCat.SwordCat] = _partnerPrefabs[0];
-        _partnerDic[E_PartnerCat.ArcherCat] = _partnerPrefabs[1];
-        _partnerDic[E_PartnerCat.MageCat] = _partnerPrefabs[2];
+        Init();
+    }
+
+    private void Init()
+    {
+        for (int i = 1; i <= _partnerPrefabs.Count; i++) {
+            _partnerDic[(E_PartnerCat)i] = _partnerPrefabs[i - 1];
+        }
     }
     public bool SpawnPartner(int type)
     {
@@ -44,7 +49,7 @@ public class PartnerManager : MonoBehaviour
         return false;
     }
     // 초반 CSV 설정 데미지를 받는 메서드
-    public float GetInitPartnerDamage(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Damage; }
+    //public float GetInitPartnerDamage(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Damage; }
     // 몬스터 이름을 받는 메서드
     public string GetPartnerName(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Name; }
     public long GetPartnerCost(int type) { WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type); return data.Cost; }

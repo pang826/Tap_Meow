@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - MonsterSpawnPos
+  - MonsterParser
+  - PartnerParser
   layers:
   - Default
   - TransparentFX

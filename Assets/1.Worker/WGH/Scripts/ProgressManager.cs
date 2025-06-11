@@ -50,7 +50,7 @@ public class ProgressManager : MonoBehaviour
             MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);
         }
 
-        SoundManager.Instance.PlayBGM(E_BGM.BGM2, 0.2f);
+        
     }
     private void ClearStage() { _stage++; if (_stage % 5 == 1) OnChangeTheme?.Invoke(); }
 

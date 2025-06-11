@@ -24,8 +24,11 @@ public class LoadingImage : MonoBehaviour
         while(_slider.value <= 1)
         {
             _slider.value += Time.deltaTime * _speed;
-            if(_slider.value >= 1 )
+            if (_slider.value >= 1)
+            {
+                SoundManager.Instance.PlayBGM(E_BGM.BGM1, 0.8f);
                 gameObject.SetActive(false);
+            }
             yield return null;
         }
         

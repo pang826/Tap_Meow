@@ -24,7 +24,6 @@ public class MonsterHpBar : MonoBehaviour
     }
     private void FloatHp()
     {
-        
         _slider.value = MonsterManager.Instance.GetCurMonHp();
         _tmp.text = $"{MonsterManager.Instance.GetCurMonHp()}";
     }

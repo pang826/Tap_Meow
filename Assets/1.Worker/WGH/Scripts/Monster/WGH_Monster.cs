@@ -6,16 +6,17 @@ using UnityEngine.EventSystems;
 public class WGH_Monster : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _render;
-    private Animator _anim;
+    private Coroutine hitCoroutine;
 
     private void Awake()
     {
         _render = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        _anim = GetComponent<Animator>();
     }
     public void TakeDamage()
     {
-        // TODO : 데미지 받을 때 애니메이션, 이펙트, 사운드 등 발동
+        if (hitCoroutine != null)
+            StopCoroutine(hitCoroutine);
+        hitCoroutine = StartCoroutine(HitEffect());
     }
 
     public void Init(Sprite newSprite)
@@ -23,19 +24,35 @@ public class WGH_Monster : MonoBehaviour
         _render.sprite = newSprite;
         gameObject.SetActive(true);
     }
-    public void SetColor(Color color)
-    {
-        SpriteRenderer render = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        if(render != null)
-            render.color = color;
-    }
     public void Deactive()
     {
         PlayerDataManager.Instance.GainGold();
-        gameObject.SetActive(false);
+        StartCoroutine(DieEffect());
     }
-    public void OnDIe()
+    IEnumerator HitEffect()
     {
-        Destroy(gameObject);
+        Color origin = _render.color;
+        _render.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _render.color = origin;
+    }
+
+    IEnumerator DieEffect()
+    {
+        float duration = 0.3f;
+        float time = 0f;
+        Color origin = _render.color;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, time / duration);
+            _render.color = new Color(origin.r, origin.g, origin.b, alpha);
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
+        MonsterManager.Instance.OnDieMonster?.Invoke();
+        _render.color = new Color(origin.r, origin.g, origin.b, 1f);
     }
 }

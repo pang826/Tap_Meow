@@ -89,7 +89,7 @@ public class MonsterManager : MonoBehaviour
 
     public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None)
     {
-        if (_curMonster == null) return;
+        if (_curMonster == null || _curHp <= 0) return;
         switch (hitType)
         {
             case E_AttackType.Attack:
@@ -107,13 +107,15 @@ public class MonsterManager : MonoBehaviour
                 _curHp -= (int)PartnerManager.Instance.GetPartnerDamage(catType);
                 break;
         }
+        OnHit?.Invoke();
+
         if (_curHp <= 0f)
         {
             _curMonster?.Deactive();
-            OnDieMonster?.Invoke();
+            //OnDieMonster?.Invoke();
             return;
         }
-        OnHit?.Invoke();
+        
         _curMonster?.TakeDamage();
     }
 

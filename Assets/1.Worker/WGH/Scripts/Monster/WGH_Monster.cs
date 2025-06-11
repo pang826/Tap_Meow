@@ -22,6 +22,7 @@ public class WGH_Monster : MonoBehaviour
     public void Init(Sprite newSprite)
     {
         _render.sprite = newSprite;
+        _render.color = Color.white;
         gameObject.SetActive(true);
     }
     public void Deactive()
@@ -31,10 +32,9 @@ public class WGH_Monster : MonoBehaviour
     }
     IEnumerator HitEffect()
     {
-        Color origin = _render.color;
         _render.color = Color.red;
         yield return new WaitForSeconds(0.1f);
-        _render.color = origin;
+        _render.color = Color.white;
     }
 
     IEnumerator DieEffect()

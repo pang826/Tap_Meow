@@ -8,10 +8,13 @@ public class LoadingImage : MonoBehaviour
     private Image _image;
     private Slider _slider;
     [SerializeField] private float _speed;
+
+    [SerializeField] private Animator _anim;
     private void Awake()
     {
         _image = GetComponent<Image>();
         _slider = GetComponentInChildren<Slider>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     private void Start()
@@ -31,6 +34,5 @@ public class LoadingImage : MonoBehaviour
             }
             yield return null;
         }
-        
     }
 }

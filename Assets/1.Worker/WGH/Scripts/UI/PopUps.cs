@@ -4,20 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class PopUps : MonoBehaviour
 {
-    public static UIManager Instance;
-
-    public GameObject ContentPrefab;
+    private GameObject _contentPrefab;
     [SerializeField] private List<Sprite> _partnerSptrites;
     [SerializeField] private List<Sprite> _statSptrites;
 
-    [Header("팝업버튼")]
-    [SerializeField] private Button _statPopUpButton;
-    [SerializeField] private Button _partnerPopUpButton;
+    private Button _statPopUpButton;
+    private Button _partnerPopUpButton;
     private RectTransform _statRect;
     private RectTransform _partnerRect;
-    [Header("위치")]
+    
     private float _topYPos;
     Vector2 _startPos;
 
@@ -28,10 +25,10 @@ public class UIManager : MonoBehaviour
     private bool _isPartnerPopUp;
     private void Awake()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
+        _contentPrefab = Resources.Load<GameObject>("ContentPrefab");
+
+        _statPopUpButton = transform.GetChild(0).GetComponent<Button>();
+        _partnerPopUpButton = transform.GetChild(1).GetComponent<Button>();
         _statRect = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
         _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
         _startPos = _statRect.anchoredPosition;
@@ -100,7 +97,7 @@ public class UIManager : MonoBehaviour
         for (int i = 1; i < (int)E_PartnerCat.MaxCount; i++)
         {
             int index = i;
-            GameObject contentPrefab = Instantiate(ContentPrefab, _partnerContent);
+            GameObject contentPrefab = Instantiate(_contentPrefab, _partnerContent);
             Content content = contentPrefab.GetComponent<Content>();
             
             content.InitPartner(_partnerSptrites[index - 1], PartnerManager.Instance.GetPartnerName(index), 
@@ -113,7 +110,7 @@ public class UIManager : MonoBehaviour
         for(int i = 1; i < (int)E_Stat.MaxCount; i++)
         {
             int index = i;
-            GameObject contentPrefab = Instantiate(ContentPrefab, _statContent);
+            GameObject contentPrefab = Instantiate(_contentPrefab, _statContent);
             Content content = contentPrefab.GetComponent<Content>();
             content.InitPlayerStat(_statSptrites[index - 1], $"{(E_Stat)index}", (E_Stat)index, PlayerDataManager.Instance.GetPrice((E_Stat)index));
         }

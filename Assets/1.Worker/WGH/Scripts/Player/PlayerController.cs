@@ -95,11 +95,11 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
                     _anim.SetTrigger("isLeftAttack1");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 0.5f);
                     break;
                 case 1:
                     _anim.SetTrigger("isLeftAttack2");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 0.5f);
                     break;
             }
         }
@@ -109,11 +109,11 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
                     _anim.SetTrigger("isRightAttack1");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 0.5f);
                     break;
                 case 1:
                     _anim.SetTrigger("isRightAttack2");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 0.5f);
                     break;
             }
         }
@@ -155,11 +155,11 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
                     _anim.SetTrigger("isLeftAttack1");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 0.5f);
                     break;
                 case 1:
                     _anim.SetTrigger("isLeftAttack2");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 0.5f);
                     break;
             }
         }
@@ -169,11 +169,11 @@ public class PlayerController : MonoBehaviour
             {
                 case 0:
                     _anim.SetTrigger("isRightAttack1");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch1, 0.5f);
                     break;
                 case 1:
                     _anim.SetTrigger("isRightAttack2");
-                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 1);
+                    SoundManager.Instance.PlaySFX(E_SFX.Punch2, 0.5f);
                     break;
             }
         }

@@ -45,6 +45,7 @@ public class ProgressManager : MonoBehaviour
             GameProgress data = JsonUtility.FromJson<GameProgress>(json);
 
             PlayerDataManager.Instance.LoadProgress(data);
+            PlayerDataManager.Instance.OnChangeGold?.Invoke();
             PartnerManager.Instance.LoadProgress(data);
             _stage = data.curStage;
             MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);

@@ -49,7 +49,9 @@ MonoBehaviour:
   - {fileID: 4069772695434139088, guid: d8379d0e1a85cc74da61c7dd331c260f, type: 3}
   - {fileID: 3532204302256765720, guid: edebeb7a6c17a48479c7179e0a388c60, type: 3}
   - {fileID: 9135635596927382456, guid: 71f4ecbc4fd67af41869ccb1569d9733, type: 3}
+  - {fileID: 3783157166274602935, guid: 1fe5bc861aba8b44baec859035c7f6c3, type: 3}
   _spawnPos:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

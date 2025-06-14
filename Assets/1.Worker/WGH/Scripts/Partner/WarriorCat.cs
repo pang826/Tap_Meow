@@ -7,6 +7,6 @@ public class WarriorCat : Partner
     protected override void Attack()
     {
         _anim.SetTrigger("isAttack");
-        MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.SwordCat);
+        MonsterManager.Instance.ReceiveHit(E_AttackType.PartnerAttack, E_PartnerCat.WarriorCat);
     }
 }

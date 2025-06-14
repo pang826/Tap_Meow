@@ -13,6 +13,7 @@ public class ProgressManager : MonoBehaviour
     private int _stage = 1;
 
     public UnityAction OnChangeTheme;
+    public UnityAction OnClearStage;
     private void Awake()
     {
         if (Instance == null)
@@ -93,7 +94,12 @@ public class ProgressManager : MonoBehaviour
         Debug.Log($"[방치보상] {idleTime.TotalMinutes:F1}분 방치 → 골드 {totalGold} 획득");
     }
 
-    private void ClearStage() { _stage++; if (_stage % 5 == 1) OnChangeTheme?.Invoke(); }
+    private void ClearStage() 
+    { 
+        _stage++; 
+        if (_stage % 5 == 1) OnChangeTheme?.Invoke();
+        OnClearStage?.Invoke();
+    }
 
     public int GetStage() { return _stage; }
     private void OnDisable()

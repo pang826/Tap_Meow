@@ -12,6 +12,8 @@ public abstract class Partner : MonoBehaviour
     protected float _curTime;
     protected float _attackCoolTime;
     protected Animator _anim;
+
+    // 최초 값 설정
     public void Init(float dmg, float attackSpeed, long cost)
     {
         _dmg = dmg;
@@ -20,6 +22,7 @@ public abstract class Partner : MonoBehaviour
         _cost = cost;
         _baseCost = (int)cost;
     }
+    // 로드 후 소환 시 값 설정
     public void LoadInit(float dmg, float attackSpeed, long cost)
     {
         _dmg = dmg;

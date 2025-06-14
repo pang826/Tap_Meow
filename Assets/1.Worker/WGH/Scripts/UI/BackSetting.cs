@@ -20,7 +20,9 @@ public class BackSetting : MonoBehaviour
     private void ChangeSprite()
     {
         Debug.Log("맵변경");
-        _image.sprite = Sprites[(ProgressManager.Instance.GetStage() - 1) / 5];
+        int themeCount = Sprites.Count;
+        int themeIndex = ((ProgressManager.Instance.GetStage() - 1) / 5) % themeCount;
+        _image.sprite = Sprites[themeIndex];
     }
     private void OnDisable()
     {

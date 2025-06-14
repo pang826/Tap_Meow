@@ -24,8 +24,8 @@ public class GameProgress
     public float criticalChance;
     public float criticalDmgPercent;
 
-    public int gold;
-    public int goldGainPer;
+    public long gold;
+    public long goldGainPer;
 
     public int damageUpgradePrice;
     public int criticalChanceUpgradePrice;
@@ -36,4 +36,6 @@ public class GameProgress
     public int curFeverGaze;
 
     public List<PartnerSaveData> SpawnPartnerList;
+
+    public long LastQuitTimeTicks;
 }

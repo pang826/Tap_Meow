@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        // 모바일
         // UI가 아닌 화면 터치
         if (Input.touchCount > 0)
         {
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
+        // 컴퓨터
         // UI가 아닌 마우스 클릭
         // 피버게이지가 가득차지 않았을 때
         if (_isFever == false && Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false

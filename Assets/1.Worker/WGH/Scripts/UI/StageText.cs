@@ -14,7 +14,7 @@ public class StageText : MonoBehaviour
     void Start()
     {
         _tmp.text = $"STAGE\n{ProgressManager.Instance.GetStage()}";
-        MonsterManager.Instance.OnBossDie += () => Invoke(nameof(SetStageText), 0.2f);
+        ProgressManager.Instance.OnChangeTheme += () => Invoke(nameof(SetStageText), 0.2f);
     }
 
     private void SetStageText()
@@ -24,6 +24,6 @@ public class StageText : MonoBehaviour
 
     private void OnDisable()
     {
-        MonsterManager.Instance.OnBossDie -= SetStageText;
+        ProgressManager.Instance.OnChangeTheme -= SetStageText;
     }
 }

@@ -8,6 +8,7 @@ TagManager:
   - MonsterParser
   - PartnerParser
   - Setting
+  - MainCanvas
   layers:
   - Default
   - TransparentFX

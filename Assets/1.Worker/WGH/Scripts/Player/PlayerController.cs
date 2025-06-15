@@ -87,7 +87,6 @@ public class PlayerController : MonoBehaviour
             MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
         else
             MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
-        DamageTextManager.Instance.ShowDamage(PlayerDataManager.Instance.GetPlayerDmg(), Vector3.zero);
 
         PlayerDataManager.Instance.IncreaseCurFeverGaze();
         int randomValue = Random.Range(0, 2);

@@ -55,7 +55,7 @@ public class DamageTextManager : MonoBehaviour
 
         var group = obj.GetComponent<CanvasGroup>();
         if (group != null)
-            group.alpha = 1f; // 💡 다시 사용할 때 보이도록 설정
+            group.alpha = 1f;
 
         var rect = obj.GetComponent<RectTransform>();
         rect.anchoredPosition = Vector2.zero;

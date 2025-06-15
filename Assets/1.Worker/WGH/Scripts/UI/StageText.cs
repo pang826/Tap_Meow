@@ -14,7 +14,7 @@ public class StageText : MonoBehaviour
     void Start()
     {
         _tmp.text = $"STAGE\n{ProgressManager.Instance.GetStage()}";
-        ProgressManager.Instance.OnClearStage += () => Invoke(nameof(SetStageText), 0.2f);
+        ProgressManager.Instance.OnClearStage += () => Invoke(nameof(SetStageText), 0.1f);
     }
 
     private void SetStageText()

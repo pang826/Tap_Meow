@@ -5,9 +5,9 @@ using UnityEngine;
 public enum E_PartnerCat
 {
     None = 0,
+    SwordCat,
     WarriorCat,
     ArcherCat,
     MageCat,
-    SwordCat,
     MaxCount
 }

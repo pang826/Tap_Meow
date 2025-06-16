@@ -9,9 +9,13 @@ public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance { get; private set; }
 
+    private Queue<float> _tapTimestamps = new Queue<float>();                           // 플레이어 터치카운트 저장 큐
+    private float _averageTimeTap = 1;                                                  // 몇초동안 평균 탭 속도를 측정할 지
+    private float _tapTimer = 0f;
+    private int _tapCount = 0;
+    private double _realTimeTPS = 0;
     [Header("플레이어 능력치")]
     [SerializeField] private long _playerDmg;                                           // 플레이어 데미지
-    public double AverageTapsPerSecond = 3;                                             // 플레이어 평균 탭 속도
     [SerializeField, Header("크리티컬 확률")] private float _criticalChance;             // 크리티컬 확률
     [SerializeField, Header("크리티컬 데미지")] private float _playerCriticalPer;        // 플레이어 크리티컬 데미지
     
@@ -43,6 +47,17 @@ public class PlayerDataManager : MonoBehaviour
     private void OnDisable()
     {
         OnMaxFeverGaze -= DecreaseFeverGaze;
+    }
+    private void Update()
+    {
+        _tapTimer += Time.deltaTime;
+
+        if (_tapTimer >= 1f)
+        {
+            _realTimeTPS = _tapCount;
+            _tapCount = 0;
+            _tapTimer = 0;
+        }
     }
 
     // =================== 업그레이드 관련 ===================
@@ -143,42 +158,41 @@ public class PlayerDataManager : MonoBehaviour
     // =================== DPS 계산 ===================
     public double GetDPS(bool includeTap = false)
     {
-        double tapDPS = includeTap ? _playerDmg * AverageTapsPerSecond : 0;
+        double tapDPS = includeTap ? _playerDmg * _realTimeTPS : 0;
         double companionDPS = PartnerManager.Instance?.GetTotalPartnerDPS() ?? 0;
-
         return tapDPS + companionDPS;
+    }
+    // 탭 입력 시 이 메서드 호출
+    public void RegisterTap()
+    {
+        float currentTime = Time.time;
+        _tapTimestamps.Enqueue(currentTime);
+        // 오래된 시간 제거
+        while (_tapTimestamps.Count > 0 && currentTime - _tapTimestamps.Peek() > _averageTimeTap)
+        {
+            _tapTimestamps.Dequeue();
+        }
+        _tapCount++;
     }
 
     public GameProgress ExportProgress()
     {
         return new GameProgress
         {
-            playerDmg = _playerDmg,
-            criticalChance = _criticalChance,
-            criticalDmgPercent = _playerCriticalPer,
-            gold = _curGold,
-            goldGainPer = _goldGainPer,
-            damageUpgradePrice = _damageUpgradePrice,
-            criticalChanceUpgradePrice = _criticalChanceUpgradePrice,
-            criticalDmgUpgradePrice = _criticalDamageUpgradePrice,
-            goldUpgradePrice = _goldUpgradePrice,
-            feverGaze = _feverGaze,
-            curFeverGaze = _curFeverGaze,
+            playerDmg = _playerDmg, criticalChance = _criticalChance, criticalDmgPercent = _playerCriticalPer,
+            gold = _curGold, goldGainPer = _goldGainPer,
+            damageUpgradePrice = _damageUpgradePrice, criticalChanceUpgradePrice = _criticalChanceUpgradePrice,
+            criticalDmgUpgradePrice = _criticalDamageUpgradePrice,goldUpgradePrice = _goldUpgradePrice,
+            feverGaze = _feverGaze, curFeverGaze = _curFeverGaze,
         };
     }
 
     public void LoadProgress(GameProgress data)
     {
-        _playerDmg = data.playerDmg;
-        _criticalChance = data.criticalChance;
-        _playerCriticalPer = data.criticalDmgPercent;
-        _curGold = data.gold;
-        _goldGainPer = data.goldGainPer;
-        _damageUpgradePrice = data.damageUpgradePrice;
-        _criticalChanceUpgradePrice = data.criticalChanceUpgradePrice;
-        _criticalDamageUpgradePrice = data.criticalDmgUpgradePrice;
-        _goldUpgradePrice = data.goldUpgradePrice;
-        _feverGaze = data.feverGaze;
-        _curFeverGaze = data.curFeverGaze;
+        _playerDmg = data.playerDmg; _criticalChance = data.criticalChance; _playerCriticalPer = data.criticalDmgPercent;
+        _curGold = data.gold; _goldGainPer = data.goldGainPer;
+        _damageUpgradePrice = data.damageUpgradePrice;_criticalChanceUpgradePrice = data.criticalChanceUpgradePrice;
+        _criticalDamageUpgradePrice = data.criticalDmgUpgradePrice; _goldUpgradePrice = data.goldUpgradePrice;
+        _feverGaze = data.feverGaze; _curFeverGaze = data.curFeverGaze;
     }
 }

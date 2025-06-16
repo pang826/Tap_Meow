@@ -95,11 +95,13 @@ public class MonsterManager : MonoBehaviour
         {
             case E_AttackType.Attack:
                 _curHp -= PlayerDataManager.Instance.GetPlayerDmg();
+                PlayerDataManager.Instance.RegisterTap();
                 DamageTextManager.Instance.ShowDamage(PlayerDataManager.Instance.GetPlayerDmg(), Vector3.zero);
                 break;
 
             case E_AttackType.Critical:
                 _curHp -= (int)PlayerDataManager.Instance.GetCriticalDamage();
+                PlayerDataManager.Instance.RegisterTap();
                 break;
 
             case E_AttackType.DefenseReduction:

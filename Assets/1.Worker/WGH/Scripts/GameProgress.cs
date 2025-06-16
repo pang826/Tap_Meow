@@ -26,11 +26,18 @@ public class GameProgress
 
     public long gold;
     public long goldGainPer;
+    public int fish;
+    public int relicPart;
 
     public int damageUpgradePrice;
     public int criticalChanceUpgradePrice;
     public int criticalDmgUpgradePrice;
     public int goldUpgradePrice;
+
+    public int damageLevel;
+    public int criticalChanceLevel;
+    public int criticalDmgLevel;
+    public int goldLevel;
 
     public int feverGaze;
     public int curFeverGaze;

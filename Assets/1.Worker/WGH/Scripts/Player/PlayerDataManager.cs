@@ -107,7 +107,7 @@ public class PlayerDataManager : MonoBehaviour
                 break;
         }
     }
-    public void ReinforceDmg(long plusDmg) { _playerDmg += plusDmg; }
+    public void ReinforceDmg(long plusDmg) { _playerDmg = (_dmgLv * 2) + plusDmg; }
     // =================== Getter ===================
     public long GetPlayerDmg() => _playerDmg;                                           // 플레이어 데미지 값을 가져오는 메서드
     public int GetPlayerDmgLevel() => _dmgLv;

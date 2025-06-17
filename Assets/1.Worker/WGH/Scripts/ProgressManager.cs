@@ -32,8 +32,10 @@ public class ProgressManager : MonoBehaviour
     {
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
         data.SpawnPartnerList = PartnerManager.Instance.ExportProgress();
+        data.SpawnRelicList = RelicManager.Instance.Save();
         data.curStage = _stage;
         data.curMonsterIndex = MonsterManager.Instance.GetCurMonsterIndex();
+        
         data.LastQuitTimeTicks = DateTime.Now.Ticks;                        // 앱 종료 시간 기록
 
         string json = JsonUtility.ToJson(data, true);
@@ -51,6 +53,8 @@ public class ProgressManager : MonoBehaviour
             PlayerDataManager.Instance.OnChangeGold?.Invoke();              // 현재 골드량 플로팅 역할
             OnChangeTheme?.Invoke();                                        // 현재 스테이지 플로팅 역할
             PartnerManager.Instance.LoadProgress(data);
+            RelicManager.Instance.Load(data);
+
             _stage = data.curStage;
             MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);
             

@@ -13,7 +13,12 @@ public class PartnerSaveData
     public int Level;
     public long Cost;
 }
-
+[Serializable]
+public class RelicSaveData
+{
+    public int Type;
+    public int Level;
+}
 [Serializable]
 public class GameProgress
 {
@@ -43,6 +48,7 @@ public class GameProgress
     public int curFeverGaze;
 
     public List<PartnerSaveData> SpawnPartnerList;
+    public List<RelicSaveData> SpawnRelicList;
 
     public long LastQuitTimeTicks;
 }

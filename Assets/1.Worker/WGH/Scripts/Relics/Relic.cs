@@ -22,5 +22,10 @@ public abstract class Relic : MonoBehaviour
         _image = GetComponent<Image>();
         _image.sprite = _sptrite;
     }
+    public virtual void LoadInit(int level)
+    {
+        _level = level;
+    }
     public abstract void Effect();
+    public virtual int GetLevel() => _level;
 }

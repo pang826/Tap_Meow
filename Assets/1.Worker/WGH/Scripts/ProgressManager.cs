@@ -33,8 +33,8 @@ public class ProgressManager : MonoBehaviour
         GameProgress data = PlayerDataManager.Instance.ExportProgress();
         data.SpawnPartnerList = PartnerManager.Instance.ExportProgress();
         data.SpawnRelicList = RelicManager.Instance.Save();
-        data.curStage = _stage;
-        data.curMonsterIndex = MonsterManager.Instance.GetCurMonsterIndex();
+        data.CurStage = _stage;
+        data.CurMonsterIndex = MonsterManager.Instance.GetCurMonsterIndex();
         
         data.LastQuitTimeTicks = DateTime.Now.Ticks;                        // 앱 종료 시간 기록
 
@@ -55,8 +55,8 @@ public class ProgressManager : MonoBehaviour
             PartnerManager.Instance.LoadProgress(data);
             RelicManager.Instance.Load(data);
 
-            _stage = data.curStage;
-            MonsterManager.Instance.SetCurMonsterIndex(data.curMonsterIndex);
+            _stage = data.CurStage;
+            MonsterManager.Instance.SetCurMonsterIndex(data.CurMonsterIndex);
             
             if(data.SpawnPartnerList != null)
             GrantIdleReward(data.LastQuitTimeTicks);

@@ -18,6 +18,8 @@ public class WGH_FeverGaze : MonoBehaviour
     private void Start()
     {
         PlayerDataManager.Instance.OnChangeFeverGaze += IncreaseGaze;
+        RelicManager.Instance.OnRelicEffectFever += (mount) => SetMaxFeverGaze(mount);
+
         _tmp.text = $"{PlayerDataManager.Instance.GetCurFeverGaze()}";
     }
 
@@ -27,8 +29,11 @@ public class WGH_FeverGaze : MonoBehaviour
         _tmp.text = $"{PlayerDataManager.Instance.GetCurFeverGaze()}";
     }
 
+    private void SetMaxFeverGaze(int mount) { slider.maxValue = 150 - mount; }
+
     private void OnDisable()
     {
         PlayerDataManager.Instance.OnChangeFeverGaze -= IncreaseGaze;
+        RelicManager.Instance.OnRelicEffectFever -= SetMaxFeverGaze;
     }
 }

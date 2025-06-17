@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RelicManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class RelicManager : MonoBehaviour
     public List<GameObject> RelicList;
     public Dictionary<E_Relic, GameObject> RelicDic = new Dictionary<E_Relic, GameObject> ();
     public Dictionary<E_Relic, Relic> SpawnRelicDic = new Dictionary<E_Relic, Relic> ();
+
+    public UnityAction<int> OnRelicEffectFever;
     private void Awake()
     {
         if (Instance == null) Instance = this;

@@ -431,6 +431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RelicList:
   - {fileID: 3525677300002271422, guid: 11a2a97c1945c7944bd5986fc0e6f0af, type: 3}
+  - {fileID: 3525677300002271422, guid: a260dc332dc99a64fafe2d4d6e4a4b22, type: 3}
 --- !u!4 &1001921382
 Transform:
   m_ObjectHideFlags: 0
@@ -536,7 +537,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1239,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 549900079}
     - target: {fileID: 2764180658702227521, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.008360322
+      value: 0.002480544
       objectReference: {fileID: 0}
     - target: {fileID: 3300379985470447775, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1299,7 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5060651910727492848, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.009091466
+      value: 0.000671584
       objectReference: {fileID: 0}
     - target: {fileID: 5225185384342373829, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size
@@ -1323,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379838839433061842, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0020848135
+      value: -0.003371948
       objectReference: {fileID: 0}
     - target: {fileID: 5409245771984944544, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size
@@ -1332,6 +1333,10 @@ PrefabInstance:
     - target: {fileID: 5409245771984944544, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5432858363437181492, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_MaxValue
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 5942234985907555836, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size

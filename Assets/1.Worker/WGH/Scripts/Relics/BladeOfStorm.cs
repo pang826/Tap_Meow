@@ -26,19 +26,19 @@ public class BladeOfStorm : Relic
             case 0:
                 break;
             case 1:
-                PlayerDataManager.Instance.ReinforceDmg(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.3f));
+                PlayerDataManager.Instance.ReinforceDmgFromRelic(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.3f));
                 break;
             case 2:
-                PlayerDataManager.Instance.ReinforceDmg(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.4f));
+                PlayerDataManager.Instance.ReinforceDmgFromRelic(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.4f));
                 break;
             case 3:
-                PlayerDataManager.Instance.ReinforceDmg(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.5f));
+                PlayerDataManager.Instance.ReinforceDmgFromRelic(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.5f));
                 break;
             case 4:
-                PlayerDataManager.Instance.ReinforceDmg(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.6f));
+                PlayerDataManager.Instance.ReinforceDmgFromRelic(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.6f));
                 break;
             case 5:
-                PlayerDataManager.Instance.ReinforceDmg(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.7f));
+                PlayerDataManager.Instance.ReinforceDmgFromRelic(Mathf.RoundToInt((PlayerDataManager.Instance.GetPlayerDmgLevel() * 2) * 0.7f));
                 break;
         }
     }

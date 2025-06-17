@@ -22,30 +22,29 @@ public class RelicSaveData
 [Serializable]
 public class GameProgress
 {
-    public int curStage;
-    public int curMonsterIndex;
+    public int CurStage;
+    public int CurMonsterIndex;
 
-    public long playerDmg;
-    public float criticalChance;
-    public float criticalDmgPercent;
+    public long PlayerDmg;
+    public float CriticalChance;
+    public float CriticalDmgPercent;
 
-    public long gold;
-    public long goldGainPer;
-    public int fish;
-    public int relicPart;
+    public long Gold;
+    public long GoldGainPer;
+    public int Fish;
+    public int RelicPart;
 
-    public int damageUpgradePrice;
-    public int criticalChanceUpgradePrice;
-    public int criticalDmgUpgradePrice;
-    public int goldUpgradePrice;
+    public int DamageUpgradePrice;
+    public int CriticalChanceUpgradePrice;
+    public int CriticalDmgUpgradePrice;
+    public int GoldUpgradePrice;
 
-    public int damageLevel;
-    public int criticalChanceLevel;
-    public int criticalDmgLevel;
-    public int goldLevel;
+    public int DamageLevel;
+    public int CriticalChanceLevel;
+    public int CriticalDmgLevel;
+    public int GoldLevel;
 
-    public int feverGaze;
-    public int curFeverGaze;
+    public int CurFeverGaze;
 
     public List<PartnerSaveData> SpawnPartnerList;
     public List<RelicSaveData> SpawnRelicList;

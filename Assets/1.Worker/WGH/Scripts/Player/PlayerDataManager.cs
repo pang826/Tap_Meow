@@ -20,8 +20,8 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField, Header("크리티컬 데미지")] private float _playerCriticalPer;        // 플레이어 크리티컬 데미지
     
     [Header("피버")]
-    [SerializeField] private int _feverGaze;                                            // 피버가 발동되는 게이지
-    [SerializeField] private int _curFeverGaze;                                         // 현재 피버 게이지
+    private int _maxFeverGaze = 150;                                                    // 피버가 발동되는 게이지
+    private int _curFeverGaze;                                                          // 현재 피버 게이지
 
     [Header("재화")]
     [SerializeField] private long _goldGainPer;                                         // 골드 획득량
@@ -107,13 +107,14 @@ public class PlayerDataManager : MonoBehaviour
                 break;
         }
     }
-    public void ReinforceDmg(long plusDmg) { _playerDmg += plusDmg; }
+    public void ReinforceDmgFromRelic(long plusDmg) { _playerDmg += plusDmg; }
+    public void DecreaseMaxFeverFromRelic(int mount) { _maxFeverGaze -= mount; }
     // =================== Getter ===================
     public long GetPlayerDmg() => _playerDmg;                                           // 플레이어 데미지 값을 가져오는 메서드
     public int GetPlayerDmgLevel() => _dmgLv;
     public float GetCriticalChance() => _criticalChance / 100f;                         // 현재 크리티컬 확률 반환 메서드
     public float GetCriticalDamage() => _playerDmg + (_playerCriticalPer / 100f);       // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
-    public int GetFeverGaze() => _feverGaze;                                            // Max 피버 게이지를 반환
+    public int GetFeverGaze() => _maxFeverGaze;                                         // Max 피버 게이지를 반환
     public int GetCurFeverGaze() => _curFeverGaze;                                      // 현재 피버 게이지를 반환
     public long GetCurGold() => _curGold;                                               // 현재 골드 반환
     public long GetGoldGainPer() => _goldGainPer;                                       // 현재 골드 획득량 반환
@@ -152,7 +153,7 @@ public class PlayerDataManager : MonoBehaviour
         OnChangeFeverGaze?.Invoke();
 
         // 피버가 가득차면 이벤트 호출
-        if(_curFeverGaze >= _feverGaze)
+        if(_curFeverGaze >= _maxFeverGaze)
             OnMaxFeverGaze?.Invoke();
     }
     private void DecreaseFeverGaze() { StartCoroutine(DecreaseFeverGazeRoutine()); }    // 피버게이지 감소
@@ -199,22 +200,22 @@ public class PlayerDataManager : MonoBehaviour
     {
         return new GameProgress
         {
-            playerDmg = _playerDmg, criticalChance = _criticalChance, criticalDmgPercent = _playerCriticalPer,
-            gold = _curGold, goldGainPer = _goldGainPer,fish = _fish, relicPart = _relicPart,
-            damageUpgradePrice = _damageUpgradePrice, criticalChanceUpgradePrice = _criticalChanceUpgradePrice,
-            criticalDmgUpgradePrice = _criticalDamageUpgradePrice,goldUpgradePrice = _goldUpgradePrice,
-            damageLevel = _dmgLv, criticalChanceLevel = _criticalChanceLv, criticalDmgLevel = _criticalDmgLv, goldLevel = _goldGainLv,
-            feverGaze = _feverGaze, curFeverGaze = _curFeverGaze,
+            PlayerDmg = _playerDmg, CriticalChance = _criticalChance, CriticalDmgPercent = _playerCriticalPer,
+            Gold = _curGold, GoldGainPer = _goldGainPer,Fish = _fish, RelicPart = _relicPart,
+            DamageUpgradePrice = _damageUpgradePrice, CriticalChanceUpgradePrice = _criticalChanceUpgradePrice,
+            CriticalDmgUpgradePrice = _criticalDamageUpgradePrice,GoldUpgradePrice = _goldUpgradePrice,
+            DamageLevel = _dmgLv, CriticalChanceLevel = _criticalChanceLv, CriticalDmgLevel = _criticalDmgLv, GoldLevel = _goldGainLv,
+             CurFeverGaze = _curFeverGaze,
         };
     }
 
     public void LoadProgress(GameProgress data)
     {
-        _playerDmg = data.damageLevel * 2; _criticalChance = data.criticalChance; _playerCriticalPer = data.criticalDmgPercent;
-        _curGold = data.gold; _goldGainPer = data.goldGainPer; _fish = data.fish; _relicPart = data.relicPart;
-        _damageUpgradePrice = data.damageUpgradePrice;_criticalChanceUpgradePrice = data.criticalChanceUpgradePrice;
-        _criticalDamageUpgradePrice = data.criticalDmgUpgradePrice; _goldUpgradePrice = data.goldUpgradePrice;
-        _dmgLv = data.damageLevel; _criticalChanceLv = data.criticalChanceLevel; _criticalDmgLv = data.criticalDmgLevel; _goldGainLv = data.goldLevel;
-        _feverGaze = data.feverGaze; _curFeverGaze = data.curFeverGaze;
+        _playerDmg = data.DamageLevel * 2; _criticalChance = data.CriticalChance; _playerCriticalPer = data.CriticalDmgPercent;
+        _curGold = data.Gold; _goldGainPer = data.GoldGainPer; _fish = data.Fish; _relicPart = data.RelicPart;
+        _damageUpgradePrice = data.DamageUpgradePrice;_criticalChanceUpgradePrice = data.CriticalChanceUpgradePrice;
+        _criticalDamageUpgradePrice = data.CriticalDmgUpgradePrice; _goldUpgradePrice = data.GoldUpgradePrice;
+        _dmgLv = data.DamageLevel; _criticalChanceLv = data.CriticalChanceLevel; _criticalDmgLv = data.CriticalDmgLevel; _goldGainLv = data.GoldLevel;
+        _curFeverGaze = data.CurFeverGaze;
     }
 }

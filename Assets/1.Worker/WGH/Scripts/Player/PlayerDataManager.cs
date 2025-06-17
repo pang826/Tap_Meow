@@ -107,7 +107,7 @@ public class PlayerDataManager : MonoBehaviour
                 break;
         }
     }
-    public void ReinforceDmg(long plusDmg) { _playerDmg = (_dmgLv * 2) + plusDmg; }
+    public void ReinforceDmg(long plusDmg) { _playerDmg += plusDmg; }
     // =================== Getter ===================
     public long GetPlayerDmg() => _playerDmg;                                           // 플레이어 데미지 값을 가져오는 메서드
     public int GetPlayerDmgLevel() => _dmgLv;
@@ -210,7 +210,7 @@ public class PlayerDataManager : MonoBehaviour
 
     public void LoadProgress(GameProgress data)
     {
-        _playerDmg = data.playerDmg; _criticalChance = data.criticalChance; _playerCriticalPer = data.criticalDmgPercent;
+        _playerDmg = data.damageLevel * 2; _criticalChance = data.criticalChance; _playerCriticalPer = data.criticalDmgPercent;
         _curGold = data.gold; _goldGainPer = data.goldGainPer; _fish = data.fish; _relicPart = data.relicPart;
         _damageUpgradePrice = data.damageUpgradePrice;_criticalChanceUpgradePrice = data.criticalChanceUpgradePrice;
         _criticalDamageUpgradePrice = data.criticalDmgUpgradePrice; _goldUpgradePrice = data.goldUpgradePrice;

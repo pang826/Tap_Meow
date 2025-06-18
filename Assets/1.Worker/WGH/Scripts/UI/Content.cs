@@ -65,6 +65,19 @@ public class Content : MonoBehaviour
     {
         Relic relic = RelicManager.Instance.GetRelic(type);
         TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        Image.sprite = relic.GetSprite();
+        DescriptionTmp.text = $"{relic.GetName()}";
+        buttonText.text = $"{relic.GetMount()}\nUpgrade";
 
+        relic.OnChangeMount += () =>
+        {
+            buttonText.text = $"{relic.GetMount()}\nUpgrade";
+        };
+
+        Button.onClick.RemoveAllListeners();
+        Button.onClick.AddListener(() => {
+            relic.Upgrade();
+            buttonText.text = $"{relic.GetMount()}\nUpgrade";
+        });
     }
 }

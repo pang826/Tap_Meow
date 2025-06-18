@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public abstract class Relic : MonoBehaviour
@@ -12,6 +13,8 @@ public abstract class Relic : MonoBehaviour
     [SerializeField] protected int _level;
     protected int _maxLevel;
     protected string _description;
+
+    public UnityAction OnChangeMount;
     protected void Start()
     {
         Effect();
@@ -30,7 +33,10 @@ public abstract class Relic : MonoBehaviour
     public abstract void Effect();
     public virtual int GetLevel() => _level;
     public virtual int GetMount() => _mount;
-    public virtual void IncreaseMount() { _mount++; }
+    public virtual void IncreaseMount() { _mount++; OnChangeMount?.Invoke(); }
+    public virtual Sprite GetSprite() { return _sptrite; }
+    public virtual string GetName() { return _name; }
+    public virtual string GetDescription() { return _description; }
     public virtual void Upgrade()
     {
         int[] upgradeCosts = { 1, 2, 4, 8 };

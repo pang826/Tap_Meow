@@ -54,7 +54,8 @@ public class PopUps : MonoBehaviour
 
         Invoke(nameof(SetStatPopUpContent), 3);
         Invoke(nameof(SetPartnerPopUpContent), 3);
-        Invoke(nameof(SetReclicPopUpContent), 3);
+        Invoke(nameof(LoadRelicContent), 3);
+        RelicManager.Instance.OnGetRelic += (relic) => SetReclicPopUpContent(relic);
     }
 
     private void OnDisable()
@@ -62,6 +63,8 @@ public class PopUps : MonoBehaviour
         _statPopUpButton.onClick.RemoveAllListeners();
         _partnerPopUpButton.onClick.RemoveAllListeners();
         _relicPopUpButton.onClick.RemoveAllListeners();
+
+        RelicManager.Instance.OnGetRelic -= SetReclicPopUpContent;
     }
     public void MoveScrollViewUp(Button button)
     {
@@ -161,8 +164,18 @@ public class PopUps : MonoBehaviour
         }
     }
 
-    private void SetReclicPopUpContent()        // 유물 팝업 콘텐츠 등록
+    private void SetReclicPopUpContent(E_Relic type)        // 유물 팝업 콘텐츠 등록
     {
+        GameObject contentPrefab = Instantiate(_contentPrefab, _relicContent);
+        Content content = contentPrefab.GetComponent<Content>();
+        content.AssignRelic(type);
+    }
 
+    private void LoadRelicContent()
+    {
+        foreach(var relic in RelicManager.Instance.SpawnRelicDic)
+        {
+            SetReclicPopUpContent(relic.Key);
+        }
     }
 }

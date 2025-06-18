@@ -8,9 +8,10 @@ public class RelicManager : MonoBehaviour
     public static RelicManager Instance;
 
     public List<GameObject> RelicList;
-    public Dictionary<E_Relic, GameObject> RelicDic = new Dictionary<E_Relic, GameObject> ();
-    public Dictionary<E_Relic, Relic> SpawnRelicDic = new Dictionary<E_Relic, Relic> ();
+    public Dictionary<E_Relic, GameObject> RelicDic = new Dictionary<E_Relic, GameObject>();
+    public Dictionary<E_Relic, Relic> SpawnRelicDic = new Dictionary<E_Relic, Relic>();
 
+    public UnityAction<E_Relic> OnGetRelic;
     public UnityAction<int> OnRelicEffectFever;
     private void Awake()
     {
@@ -23,13 +24,31 @@ public class RelicManager : MonoBehaviour
         }
     }
 
-    public void GetRelic(int relic)
+    public void PurchaseRelic()
     {
-        if (SpawnRelicDic.TryGetValue((E_Relic)relic, out Relic rel) == true) return;
-        GameObject obj = Instantiate(RelicList[relic], transform);
-        SpawnRelicDic[(E_Relic)relic] = obj.GetComponent<Relic>();
+        int randNum = Random.Range(0, RelicList.Count);
+        if (SpawnRelicDic.TryGetValue((E_Relic)randNum, out Relic rel) == true)
+        {
+            rel.IncreaseMount();
+            return;
+        }
+        GameObject obj = Instantiate(RelicList[randNum], transform);
+        SpawnRelicDic[(E_Relic)randNum] = obj.GetComponent<Relic>();
+        OnGetRelic?.Invoke((E_Relic)randNum);
     }
 
+    public Relic GetRelic(E_Relic relic)
+    {
+        if (SpawnRelicDic.TryGetValue(relic, out Relic rel) == true)
+        {
+            return SpawnRelicDic[relic];
+        }
+        else
+        {
+            Debug.Log("소유하지 않은 유물");
+            return null;
+        }
+    }
     public List<RelicSaveData> Save()
     {
         List<RelicSaveData> saveList = new List<RelicSaveData>();
@@ -39,7 +58,8 @@ public class RelicManager : MonoBehaviour
             RelicSaveData data = new RelicSaveData
             {
                 Type = (int)relic.Key,
-                Level = relic.Value.GetLevel()
+                Level = relic.Value.GetLevel(),
+                Mount = relic.Value.GetMount()
             };
             saveList.Add(data);
         }
@@ -53,7 +73,7 @@ public class RelicManager : MonoBehaviour
             {
                 GameObject relicObj = Instantiate(obj, transform);
                 Relic loadRelic = relicObj.GetComponent<Relic>();
-                loadRelic.LoadInit(relic.Level);
+                loadRelic.LoadInit(relic.Level, relic.Mount);
                 SpawnRelicDic[(E_Relic)relic.Type] = loadRelic;
             }
         }

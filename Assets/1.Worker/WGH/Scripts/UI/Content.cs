@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -55,9 +56,15 @@ public class Content : MonoBehaviour
         buttonText.text = $"{cost}";
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(() => { 
-            //PlayerDataManager.Instance.GetUpgradeMethod(statType)?.Invoke(); 
             PlayerDataManager.Instance.UpgradeStat(statType);
             buttonText.text = $"{PlayerDataManager.Instance.GetPrice(statType)}"; 
         });
+    }
+
+    public void AssignRelic(E_Relic type)
+    {
+        Relic relic = RelicManager.Instance.GetRelic(type);
+        TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
     }
 }

@@ -532,12 +532,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1001921381}
         m_TargetAssemblyTypeName: RelicManager, Assembly-CSharp
-        m_MethodName: GetRelic
-        m_Mode: 3
+        m_MethodName: PurchaseRelic
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1240,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 549900079}
     - target: {fileID: 2764180658702227521, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.002480544
+      value: 0.005922172
       objectReference: {fileID: 0}
     - target: {fileID: 3300379985470447775, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1300,7 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5060651910727492848, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000671584
+      value: 0.005448724
       objectReference: {fileID: 0}
     - target: {fileID: 5225185384342373829, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size
@@ -1324,7 +1324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379838839433061842, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.003371948
+      value: 0.0018612887
       objectReference: {fileID: 0}
     - target: {fileID: 5409245771984944544, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size

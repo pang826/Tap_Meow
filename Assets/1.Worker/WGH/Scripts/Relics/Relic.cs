@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +7,9 @@ public abstract class Relic : MonoBehaviour
     [SerializeField] protected Sprite _sptrite;
     protected string _name;
     protected int _price;
-    protected int _level;
+
+    [SerializeField] protected int _mount;
+    [SerializeField] protected int _level;
     protected int _maxLevel;
     protected string _description;
     protected void Start()
@@ -22,10 +22,30 @@ public abstract class Relic : MonoBehaviour
         _image = GetComponent<Image>();
         _image.sprite = _sptrite;
     }
-    public virtual void LoadInit(int level)
+    public virtual void LoadInit(int level, int mount)
     {
         _level = level;
+        _mount = mount;
     }
     public abstract void Effect();
     public virtual int GetLevel() => _level;
+    public virtual int GetMount() => _mount;
+    public virtual void IncreaseMount() { _mount++; }
+    public virtual void Upgrade()
+    {
+        int[] upgradeCosts = { 1, 2, 4, 8 };
+
+        // 최대 레벨인지 확인
+        if (_level >= upgradeCosts.Length + 1)
+            return;
+
+        int requiredMount = upgradeCosts[_level - 1];
+
+        // 업그레이드 가능 여부 확인
+        if (_mount >= requiredMount)
+        {
+            _mount -= requiredMount;
+            _level++;
+        }
+    }
 }

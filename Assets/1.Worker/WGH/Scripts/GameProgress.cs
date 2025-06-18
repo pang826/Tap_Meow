@@ -18,6 +18,7 @@ public class RelicSaveData
 {
     public int Type;
     public int Level;
+    public int Mount;
 }
 [Serializable]
 public class GameProgress

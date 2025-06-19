@@ -1240,7 +1240,7 @@ PrefabInstance:
       objectReference: {fileID: 549900079}
     - target: {fileID: 2764180658702227521, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.005922172
+      value: 0.0015076889
       objectReference: {fileID: 0}
     - target: {fileID: 3300379985470447775, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1298,9 +1298,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: TotalDPS
       objectReference: {fileID: 0}
+    - target: {fileID: 4780242674313832955, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5060651910727492848, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.005448724
+      value: 0.0015358998
       objectReference: {fileID: 0}
     - target: {fileID: 5225185384342373829, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size
@@ -1324,7 +1328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5379838839433061842, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0018612887
+      value: 0.0011344197
       objectReference: {fileID: 0}
     - target: {fileID: 5409245771984944544, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Size
@@ -1344,6 +1348,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5942234985907555836, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5961029064854379608, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7352295256087743886, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
@@ -1378,6 +1386,18 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 549900079}
+    - target: {fileID: 8705718675269746068, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705718675269746068, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1440
+      objectReference: {fileID: 0}
+    - target: {fileID: 8705718675269746068, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 3200
+      objectReference: {fileID: 0}
     - target: {fileID: 8873844973659348564, guid: 754d323bf752a8f4891cb9899f3a7135, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

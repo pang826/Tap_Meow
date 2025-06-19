@@ -13,13 +13,15 @@ public class Content : MonoBehaviour
     public TextMeshProUGUI DescriptionTmp;
     public Button Button;
     public TextMeshProUGUI ButtonTmp;
+    public TextMeshProUGUI LevelTmp;
 
     private void Awake()
     {
-        Image = GetComponentInChildren<Image>();
-        DescriptionTmp = GetComponentInChildren<TextMeshProUGUI>();
-        Button = GetComponentInChildren<Button>();
-        ButtonTmp = Button.GetComponentInChildren<TextMeshProUGUI>();
+        //Image = GetComponentInChildren<Image>();
+        //DescriptionTmp = GetComponentInChildren<TextMeshProUGUI>();
+        //Button = GetComponentInChildren<Button>();
+        //ButtonTmp = Button.GetComponentInChildren<TextMeshProUGUI>();
+        //LevelTmp = Image.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     public void InitPartner(Sprite image, string text, Func<bool> onClickAction, E_PartnerCat catType, long cost)
@@ -66,14 +68,17 @@ public class Content : MonoBehaviour
         Relic relic = RelicManager.Instance.GetRelic(type);
         TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Image.sprite = relic.GetSprite();
-        DescriptionTmp.text = $"{relic.GetName()}";
+        DescriptionTmp.text = $"{relic.GetName()}\n{relic.GetDescription()}";
         buttonText.text = $"{relic.GetMount()}\nUpgrade";
-
+        LevelTmp.text = $"LV.{relic.GetLevel()}";
         relic.OnChangeMount += () =>
         {
             buttonText.text = $"{relic.GetMount()}\nUpgrade";
         };
-
+        relic.OnUpgrade += () =>
+        {
+            LevelTmp.text = $"LV.{relic.GetLevel()}";
+        };
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(() => {
             relic.Upgrade();

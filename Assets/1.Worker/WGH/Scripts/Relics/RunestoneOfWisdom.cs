@@ -6,7 +6,7 @@ public class RunestoneOfWisdom : Relic
 {
     private void Awake()
     {
-        Init(_sptrite, "Runestone Of Wisdom", 1, 1, 5, "FeverGaze - 10");
+        Init(_sptrite, "Runestone Of Wisdom", 1, 5, "FeverGaze - 10");
     }
     protected void Start()
     {
@@ -27,23 +27,23 @@ public class RunestoneOfWisdom : Relic
                 break;
             case 1:
                 PlayerDataManager.Instance.DecreaseMaxFeverFromRelic(10);
-                mount = 10;
+                mount = 50;
                 break;
             case 2:
                 PlayerDataManager.Instance.DecreaseMaxFeverFromRelic(20);
-                mount = 20;
+                mount = 100;
                 break;
             case 3:
                 PlayerDataManager.Instance.DecreaseMaxFeverFromRelic(30);
-                mount = 30;
+                mount = 150;
                 break;
             case 4:
                 PlayerDataManager.Instance.DecreaseMaxFeverFromRelic(40);
-                mount = 40;
+                mount = 200;
                 break;
             case 5:
                 PlayerDataManager.Instance.DecreaseMaxFeverFromRelic(50);
-                mount = 50;
+                mount = 250;
                 break;
         }
         RelicManager.Instance.OnRelicEffectFever?.Invoke(mount);

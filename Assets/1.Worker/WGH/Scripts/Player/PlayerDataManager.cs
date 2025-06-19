@@ -20,7 +20,7 @@ public class PlayerDataManager : MonoBehaviour
     [SerializeField, Header("크리티컬 데미지")] private float _playerCriticalPer;        // 플레이어 크리티컬 데미지
     
     [Header("피버")]
-    private int _maxFeverGaze = 150;                                                    // 피버가 발동되는 게이지
+    private int _maxFeverGaze = 1000;                                                   // 피버가 발동되는 게이지
     private int _curFeverGaze;                                                          // 현재 피버 게이지
 
     [Header("재화")]

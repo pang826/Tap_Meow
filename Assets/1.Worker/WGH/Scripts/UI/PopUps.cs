@@ -35,9 +35,9 @@ public class PopUps : MonoBehaviour
         _statPopUpButton = transform.GetChild(0).GetComponent<Button>();
         _partnerPopUpButton = transform.GetChild(1).GetComponent<Button>();
         _relicPopUpButton = transform.GetChild(2).GetComponent<Button>();
-        _statRect = _statPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
-        _partnerRect = _partnerPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
-        _relicRect = _relicPopUpButton.transform.GetChild(0).GetComponent<RectTransform>();
+        _statRect = _statPopUpButton.transform.GetChild(1).GetComponent<RectTransform>();
+        _partnerRect = _partnerPopUpButton.transform.GetChild(1).GetComponent<RectTransform>();
+        _relicRect = _relicPopUpButton.transform.GetChild(1).GetComponent<RectTransform>();
         _startPos = _statRect.anchoredPosition;
 
         _partnerContent = _partnerRect.GetChild(0).GetChild(0);

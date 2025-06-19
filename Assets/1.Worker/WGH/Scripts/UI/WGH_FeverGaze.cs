@@ -29,7 +29,7 @@ public class WGH_FeverGaze : MonoBehaviour
         _tmp.text = $"{PlayerDataManager.Instance.GetCurFeverGaze()}";
     }
 
-    private void SetMaxFeverGaze(int mount) { slider.maxValue = 150 - mount; }
+    private void SetMaxFeverGaze(int mount) { slider.maxValue = 1000 - mount; }
 
     private void OnDisable()
     {

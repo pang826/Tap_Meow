@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class FloatDPS : MonoBehaviour
 {
-    private TextMeshProUGUI _totalDpsTmp;
-    private TextMeshProUGUI _partnerDpsTmp;
-    private void Awake()
-    {
-        _totalDpsTmp = transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-        _partnerDpsTmp = transform.GetChild(1).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
-    }
+    [SerializeField] private TextMeshProUGUI _totalDpsTmp;
+    [SerializeField] private TextMeshProUGUI _partnerDpsTmp;
     private void Start()
     {
         StartCoroutine(FloatRoutine());

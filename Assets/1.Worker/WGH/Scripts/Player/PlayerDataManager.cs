@@ -101,8 +101,8 @@ public class PlayerDataManager : MonoBehaviour
                 _criticalDamageUpgradePrice++;
                 break;
             case E_Stat.GoldGainPer:
-                _goldGainPer += _goldGainPer;
                 _goldGainLv++;
+                _goldGainPer = _goldGainLv * 2;
                 _goldUpgradePrice++;
                 break;
         }
@@ -113,7 +113,7 @@ public class PlayerDataManager : MonoBehaviour
     public long GetPlayerDmg() => _playerDmg;                                           // 플레이어 데미지 값을 가져오는 메서드
     public int GetPlayerDmgLevel() => _dmgLv;
     public float GetCriticalChance() => _criticalChance / 100f;                         // 현재 크리티컬 확률 반환 메서드
-    public float GetCriticalDamage() => _playerDmg + (_playerCriticalPer / 100f);       // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
+    public int GetCriticalDamage() => Mathf.CeilToInt(_playerDmg + (_playerDmg * (_playerCriticalPer * 0.01f)));       // 현재 크리티컬 데미지 증가율에 따른 데미지 반환 메서드
     public int GetFeverGaze() => _maxFeverGaze;                                         // Max 피버 게이지를 반환
     public int GetCurFeverGaze() => _curFeverGaze;                                      // 현재 피버 게이지를 반환
     public long GetCurGold() => _curGold;                                               // 현재 골드 반환
@@ -176,7 +176,7 @@ public class PlayerDataManager : MonoBehaviour
 
     IEnumerator DecreaseFeverGazeRoutine()
     {
-        WaitForSeconds time = new WaitForSeconds(0.1f);
+        WaitForSeconds time = new WaitForSeconds(0.01f);
 
         yield return new WaitForSeconds(0.5f);
         while(true)
@@ -189,7 +189,6 @@ public class PlayerDataManager : MonoBehaviour
             _curFeverGaze--;
             OnChangeFeverGaze?.Invoke();
             yield return time;
-            yield return null;
         }
     }
     // =================== DPS 계산 ===================

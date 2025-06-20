@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         }
         // 컴퓨터
         // UI가 아닌 마우스 클릭
-        // 피버게이지가 가득차지 않았을 때
+        //피버게이지가 가득차지 않았을 때
         if (_isFever == false && Input.GetMouseButtonDown(0) && EventSystem.current.IsPointerOverGameObject() == false
         && PlayerDataManager.Instance.GetFeverGaze() > PlayerDataManager.Instance.GetCurFeverGaze())
             Attack();
@@ -82,11 +82,10 @@ public class PlayerController : MonoBehaviour
         if(_isLeftAttack) { _anim.SetBool("isLeft", true); }
 
         bool isCritical = Random.value <= PlayerDataManager.Instance.GetCriticalChance();
-
         if (isCritical == false)
             MonsterManager.Instance.ReceiveHit(E_AttackType.Attack);
         else
-            MonsterManager.Instance.ReceiveHit(E_AttackType.Critical);
+            MonsterManager.Instance.ReceiveHit(E_AttackType.Critical, E_PartnerCat.None, true);
 
         PlayerDataManager.Instance.IncreaseCurFeverGaze();
         int randomValue = Random.Range(0, 2);

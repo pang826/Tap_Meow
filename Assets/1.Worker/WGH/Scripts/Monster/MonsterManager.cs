@@ -94,7 +94,7 @@ public class MonsterManager : MonoBehaviour
         else monster.transform.localScale = Vector3.one;
     }
     // 피격 스타일 별 다른 반응(공격하는 모든 객체에서 호출하여 데미지 적용)
-    public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None)
+    public void ReceiveHit(E_AttackType hitType, E_PartnerCat catType = E_PartnerCat.None, bool isCritical = false)
     {
         if (_curMonster == null || _curHp <= 0) return;
         switch (hitType)
@@ -102,12 +102,13 @@ public class MonsterManager : MonoBehaviour
             case E_AttackType.Attack:
                 _curHp -= PlayerDataManager.Instance.GetPlayerDmg();
                 PlayerDataManager.Instance.RegisterTap();
-                DamageTextManager.Instance.ShowDamage(PlayerDataManager.Instance.GetPlayerDmg(), Vector3.zero);
+                DamageTextManager.Instance.ShowDamage(PlayerDataManager.Instance.GetPlayerDmg(), Vector3.zero, isCritical);
                 break;
 
             case E_AttackType.Critical:
-                _curHp -= (int)PlayerDataManager.Instance.GetCriticalDamage();
+                _curHp -= PlayerDataManager.Instance.GetCriticalDamage();
                 PlayerDataManager.Instance.RegisterTap();
+                DamageTextManager.Instance.ShowDamage(PlayerDataManager.Instance.GetCriticalDamage(), Vector3.zero, isCritical);
                 break;
 
             case E_AttackType.DefenseReduction:
@@ -121,6 +122,7 @@ public class MonsterManager : MonoBehaviour
 
         if (_curHp <= 0f)
         {
+            _curHp = 0;
             _curMonster?.Deactive();
             return;
         }

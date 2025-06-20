@@ -13,8 +13,10 @@ public class DamageText : MonoBehaviour
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void Show(long damage)
+    public void Show(long damage, bool isCritical)
     {
+        if(!isCritical) { _damageText.color = Color.white; }
+        else { _damageText.color = Color.red; }
         _damageText.text = damage.ToString();
         _canvasGroup.alpha = 1f;
         GetComponent<RectTransform>().localPosition = Vector3.zero;

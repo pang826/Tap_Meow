@@ -18,7 +18,7 @@ public class DamageTextManager : MonoBehaviour
     {
         _canvasTransform = GameObject.FindGameObjectWithTag("MainCanvas").transform;
     }
-    public void ShowDamage(long damage, Vector3 worldPos)
+    public void ShowDamage(long damage, Vector3 worldPos, bool isCritical)
     {
         GameObject dt = GetFromPool();
         dt.transform.SetParent(_canvasTransform, false);
@@ -32,7 +32,7 @@ public class DamageTextManager : MonoBehaviour
 
         dt.GetComponent<RectTransform>().localPosition = localPoint;
         dt.SetActive(true);
-        dt.GetComponent<DamageText>().Show(damage);
+        dt.GetComponent<DamageText>().Show(damage, isCritical);
     }
 
     private GameObject GetFromPool()

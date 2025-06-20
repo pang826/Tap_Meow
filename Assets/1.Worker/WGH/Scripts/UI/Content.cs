@@ -28,20 +28,21 @@ public class Content : MonoBehaviour
     {
         Image.sprite = image;
         DescriptionTmp.text = text;
-        Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{cost}";
+        ButtonTmp.text = $"{cost}";
         Button.onClick.RemoveAllListeners();
-
+        LevelTmp.text = $"LV.{PartnerManager.Instance.PartnerDic[catType].GetComponent<Partner>().GetCurLevel()}";
         UnityAction wrapper = null;
         wrapper = () => 
         { 
             bool isActive = onClickAction.Invoke();
             if (isActive == false) return;
 
-            Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{PartnerManager.Instance.GetCurCost(catType)}";
+            ButtonTmp.text = $"{PartnerManager.Instance.GetCurCost(catType)}";
             Button.onClick.RemoveListener(wrapper); 
             Button.onClick.AddListener(() =>
             {
-                PartnerManager.Instance.UpgradeDamage(catType, Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>());
+                PartnerManager.Instance.UpgradeDamage(catType, ButtonTmp);
+                LevelTmp.text = $"LV.{PartnerManager.Instance.PartnerDic[catType].GetComponent<Partner>().GetCurLevel()}";
             }); 
             
         };
@@ -50,16 +51,17 @@ public class Content : MonoBehaviour
 
     public void InitPlayerStat(Sprite image, string text, E_Stat statType, long cost)
     {
-        TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         if (image != null)
         Image.sprite = image;
-        if(text != null)
+        LevelTmp.text = $"LV.{PlayerDataManager.Instance.GetStatLevel(statType)}";
+        if (text != null)
         DescriptionTmp.text = text;
-        buttonText.text = $"{cost}";
+        ButtonTmp.text = $"{cost}";
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(() => { 
             PlayerDataManager.Instance.UpgradeStat(statType);
-            buttonText.text = $"{PlayerDataManager.Instance.GetPrice(statType)}"; 
+            LevelTmp.text = $"LV. {PlayerDataManager.Instance.GetStatLevel(statType)}";
+            ButtonTmp.text = $"{PlayerDataManager.Instance.GetPrice(statType)}"; 
         });
     }
 
@@ -68,7 +70,7 @@ public class Content : MonoBehaviour
         Relic relic = RelicManager.Instance.GetRelic(type);
         TextMeshProUGUI buttonText = Button.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         Image.sprite = relic.GetSprite();
-        DescriptionTmp.text = $"{relic.GetName()}\n{relic.GetDescription()}";
+        DescriptionTmp.text = $"{relic.GetName()}\n{relic.GetDescription(relic.GetLevel())}";
         buttonText.text = $"{relic.GetMount()}\nUpgrade";
         LevelTmp.text = $"LV.{relic.GetLevel()}";
         relic.OnChangeMount += () =>
@@ -78,6 +80,7 @@ public class Content : MonoBehaviour
         relic.OnUpgrade += () =>
         {
             LevelTmp.text = $"LV.{relic.GetLevel()}";
+            DescriptionTmp.text = $"{relic.GetName()}\n{relic.GetDescription(relic.GetLevel())}";
         };
         Button.onClick.RemoveAllListeners();
         Button.onClick.AddListener(() => {

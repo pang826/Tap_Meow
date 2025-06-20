@@ -16,10 +16,11 @@ public class MonsterManager : MonoBehaviour
 
     private Transform _spawnPos;                    // 몬스터 소환 위치
     private int _monsterIndex = 1;
+    private int _maxMonsterIndex = 10;
     public List<MonsterTheme> _monsterThemes;
 
     [Header("현재 몬스터 정보")]
-    private int _baseHp = 10;
+    private int _baseHp;
     [SerializeField] private long _curHp;
     [SerializeField] private bool _isBoss;
     //[SerializeField] private float _dropGold;
@@ -44,12 +45,15 @@ public class MonsterManager : MonoBehaviour
     {
         _spawnPos = GameObject.FindGameObjectWithTag("MonsterSpawnPos").transform;
         OnDieMonster += HandleMonsterDefeat;
+        _baseHp = ProgressManager.Instance.GetStage() * 16;
         StartCoroutine(SpawnRoutine());
+
+        ProgressManager.Instance.OnChangeTheme += PowBaseHp;
     }
     // 몬스터 스폰 메서드
     private void SpawnMonster(int stage)
     {
-        bool isBoss = (_monsterIndex == 10);
+        bool isBoss = (_monsterIndex == _maxMonsterIndex);
         _isBoss = isBoss;
 
         int maxDefinedStage = 25;
@@ -68,10 +72,12 @@ public class MonsterManager : MonoBehaviour
             GameObject newMon = Instantiate(_monsterPrefab, _spawnPos.position, Quaternion.identity);
             _curMonster = newMon.GetComponent<WGH_Monster>();
         }
-        // 색상 설정과 비활성화 된 몬스터 오브젝트 활성화
+        // 비활성화 된 몬스터 오브젝트 활성화
         _curMonster.Init(monSprite);
         if (!_isBoss)
             SetMonster(_curMonster, _baseHp * (int)(ProgressManager.Instance.GetStage() * 1.2f));
+        else if(stage % 5 == 0 && _isBoss)
+            SetMonster(_curMonster, _baseHp * (int)(ProgressManager.Instance.GetStage() * 10f));
         else
             SetMonster(_curMonster, _baseHp * (int)(ProgressManager.Instance.GetStage() * 5f));
         
@@ -141,14 +147,20 @@ public class MonsterManager : MonoBehaviour
         if (sprites == null || sprites.Count == 0) return null;
         return sprites[Random.Range(0, sprites.Count)];
     }
+    private void PowBaseHp() { _baseHp *= 10; }
 
     public long GetCurMonHp() { return _curHp; }
     public long GetAvgMonHp() { return _baseHp * (int)(ProgressManager.Instance.GetStage() * 1.2f); }
 
     private void OnDisable()
-    { OnDieMonster -= HandleMonsterDefeat; }
+    { 
+        OnDieMonster -= HandleMonsterDefeat;
+        ProgressManager.Instance.OnChangeTheme -= PowBaseHp;
+    }
 
     // 세이브 & 로드 용 메서드
     public int GetCurMonsterIndex() { return _monsterIndex; }
+    public int GetMaxMonsterIndex() { return _maxMonsterIndex; }
     public void SetCurMonsterIndex(int index) {  _monsterIndex = index; }
+    public void SetMaxMonsterIndex(int index) { _maxMonsterIndex = index; }
 }

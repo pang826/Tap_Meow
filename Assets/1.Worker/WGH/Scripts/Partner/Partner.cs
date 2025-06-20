@@ -23,12 +23,13 @@ public abstract class Partner : MonoBehaviour
         _baseCost = (int)cost;
     }
     // 로드 후 소환 시 값 설정
-    public void LoadInit(float dmg, float attackSpeed, long cost)
+    public void LoadInit(float dmg, float attackSpeed, long cost, int level)
     {
         _dmg = dmg;
         _attackSpped = attackSpeed;
         _attackCoolTime = 1 / attackSpeed;
         _cost = cost;
+        _level = level;
     }
 
     private void Start()

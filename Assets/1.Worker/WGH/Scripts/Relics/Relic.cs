@@ -8,7 +8,7 @@ public abstract class Relic : MonoBehaviour
     [SerializeField] protected Sprite _sptrite;
     protected string _name;
     protected int[] _price = { 1, 2, 4, 8 };
-
+    protected string[] _descriptions;
     [SerializeField] protected int _mount;
     [SerializeField] protected int _level;
     protected int _maxLevel;
@@ -38,7 +38,7 @@ public abstract class Relic : MonoBehaviour
     public virtual void IncreaseMount() { _mount++; OnChangeMount?.Invoke(); }
     public virtual Sprite GetSprite() { return _sptrite; }
     public virtual string GetName() { return _name; }
-    public virtual string GetDescription() { return _description; }
+    public virtual string GetDescription(int level) { return _descriptions[level - 1]; }
     public virtual void Upgrade()
     {
         // 최대 레벨인지 확인

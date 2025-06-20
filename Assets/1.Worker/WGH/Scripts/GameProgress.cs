@@ -25,6 +25,7 @@ public class GameProgress
 {
     public int CurStage;
     public int CurMonsterIndex;
+    public int MaxMonsterIndex;
 
     public long PlayerDmg;
     public float CriticalChance;

@@ -9,7 +9,7 @@ public class PartnerManager : MonoBehaviour
     [SerializeField] private WGH_ParsePartner _parser;                                                          // 파트너 파서
 
     [SerializeField] private List<GameObject> _partnerPrefabs = new List<GameObject>();                         // 파트너 프리팹
-    private Dictionary<E_PartnerCat, GameObject> _partnerDic = new Dictionary<E_PartnerCat, GameObject>();      // 파트너 기본 값 저장
+    public Dictionary<E_PartnerCat, GameObject> PartnerDic = new Dictionary<E_PartnerCat, GameObject>();      // 파트너 기본 값 저장
     private Dictionary<E_PartnerCat, Partner> _spawnPartnerDic = new Dictionary<E_PartnerCat, Partner>();       // 소환된 파트너 저장
     [SerializeField] private List<Transform> _spawnPos;
 
@@ -26,7 +26,7 @@ public class PartnerManager : MonoBehaviour
     private void Init()
     {
         for (int i = 1; i <= _partnerPrefabs.Count; i++) {
-            _partnerDic[(E_PartnerCat)i] = _partnerPrefabs[i - 1];
+            PartnerDic[(E_PartnerCat)i] = _partnerPrefabs[i - 1];
         }
     }
     // 파트너 소환
@@ -36,9 +36,9 @@ public class PartnerManager : MonoBehaviour
         WGH_PartnerData data = _parser.partnerDataList.Find(p => p.Number == type);
         if (data == null) { Debug.Log("파트너 데이터가 없습니다"); return false; }
         // 딕셔너리에 해당 타입의 파트너가 있고 현재 코인이 파트너 소환 값보다 클 경우 소환
-        if(_partnerDic.TryGetValue((E_PartnerCat)type, out GameObject obj) && PlayerDataManager.Instance.GetCurGold() >= GetPartnerCost(type)) 
+        if(PartnerDic.TryGetValue((E_PartnerCat)type, out GameObject obj) && PlayerDataManager.Instance.GetCurGold() >= GetPartnerCost(type)) 
         {
-            obj = Instantiate(_partnerDic[(E_PartnerCat)type]);
+            obj = Instantiate(PartnerDic[(E_PartnerCat)type]);
             obj.transform.position = _spawnPos[type - 1].position;
             Partner partner = obj.GetComponent<Partner>();
             partner.Init(data.Damage, data.AttackSpeed, data.Cost);
@@ -80,7 +80,8 @@ public class PartnerManager : MonoBehaviour
                 Type = (int)partner.Key,
                 Damage = partner.Value.GetDamage(),
                 AttackSpeed = partner.Value.GetAttackSpeed(),
-                Cost = partner.Value.GetCurCost()
+                Cost = partner.Value.GetCurCost(),
+                Level = partner.Value.GetCurLevel()
             };
             saveList.Add(data);
         }
@@ -91,12 +92,12 @@ public class PartnerManager : MonoBehaviour
     {
         foreach(var partnerData in data.SpawnPartnerList)
         {
-            if(_partnerDic.TryGetValue((E_PartnerCat)partnerData.Type, out GameObject prefab))
+            if(PartnerDic.TryGetValue((E_PartnerCat)partnerData.Type, out GameObject prefab))
             {
                 GameObject obj = Instantiate(prefab);
                 obj.transform.position = _spawnPos[partnerData.Type - 1].position;
                 Partner partner = obj.GetComponent<Partner>();
-                partner.LoadInit(partnerData.Damage, partnerData.AttackSpeed, partnerData.Cost);
+                partner.LoadInit(partnerData.Damage, partnerData.AttackSpeed, partnerData.Cost, partnerData.Level);
 
                 _spawnPartnerDic[(E_PartnerCat)partnerData.Type] = partner;
             }

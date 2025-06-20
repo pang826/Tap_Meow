@@ -120,6 +120,22 @@ public class PlayerDataManager : MonoBehaviour
     public long GetGoldGainPer() => _goldGainPer;                                       // 현재 골드 획득량 반환
     public int GetCurFish() => _fish;                                                   // 현재 물고기 갯수 반환
     public int GetCurRelicPart() => _relicPart;                                         // 현재 유물파편 갯수 반환
+    public int GetStatLevel(E_Stat statType)                                            // 스탯 레벨 반환
+    {
+        switch(statType)
+        {
+            case E_Stat.Damage:
+                return _dmgLv;
+            case E_Stat.CriticalChance:
+                return _criticalChanceLv;
+            case E_Stat.CriticalDamage:
+                return _criticalDmgLv;
+            case E_Stat.GoldGainPer:
+                return _goldGainLv;
+            default:
+                return 0;
+        }
+    }
     // =================== 재화 처리 ===================
     public void GainGold()                                                              // 골드 획득
     {

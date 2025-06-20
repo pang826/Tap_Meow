@@ -7,6 +7,7 @@ public class RunestoneOfWisdom : Relic
     private void Awake()
     {
         Init(_sptrite, "Runestone Of Wisdom", 1, 5, "FeverGaze - 10");
+        _descriptions = new string[] { "FeverGaze - 50","FeverGaze - 100","FeverGaze - 150","FeverGaze - 200","FeverGaze - 250" };
     }
     protected void Start()
     {
